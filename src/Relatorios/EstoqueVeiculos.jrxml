@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstoqueVeiculos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="489f8d8c-f7b6-4db1-a7b9-e87429197c95">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="42"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="modelo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="modelo_like" class="java.lang.String">
+		<defaultValueExpression><![CDATA["%"+$P{modelo}+"%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="placa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="placa_like" class="java.lang.String">
+		<defaultValueExpression><![CDATA["%"+$P{placa}+"%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="empresa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="somenteEstoque" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *
+FROM VEICULOS
+WHERE PLACA LIKE $P{placa_like} AND
+      MODELO LIKE $P{modelo_like} AND
+      CASE
+         WHEN $P{somenteEstoque} = 0 THEN
+            EMESTOQUE = 1 OR EMESTOQUE = 0
+         WHEN $P{somenteEstoque} = 1 THEN
+            EMESTOQUE = 1
+      END]]>
+	</queryString>
+	<field name="placa" class="java.lang.String"/>
+	<field name="marca" class="java.lang.String"/>
+	<field name="modelo" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="anofabricacao" class="java.lang.String"/>
+	<field name="anomodelo" class="java.lang.String"/>
+	<field name="cor" class="java.lang.String"/>
+	<field name="combustivel" class="java.lang.String"/>
+	<field name="motor" class="java.lang.String"/>
+	<field name="chassi" class="java.lang.String"/>
+	<field name="renavam" class="java.lang.String"/>
+	<field name="km" class="java.lang.Double"/>
+	<field name="transmissao" class="java.lang.String"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="emestoque" class="java.lang.Integer"/>
+	<field name="datacompra" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="555" height="20" uuid="3e9089da-4f15-4b53-bdb4-4683c0f737b5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Veículos em Estoque]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="7054d134-ff4a-4ab3-88ac-4d10aa56a7e6"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="-20" width="249" height="20" uuid="0fb81b0b-0d9c-46e6-a5ed-8e53eca3b282"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="512" y="-19" width="43" height="20" uuid="b9e8c1ff-9780-4bb1-93a8-53cc86bcc627"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="245" y="0" width="31" height="11" uuid="e7f1f585-1b44-4b3c-83c7-e1db753d9822"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Veículo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="0" width="100" height="11" uuid="4c6171f4-cb9f-4f78-862d-120a6b8d4698"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{modelo} == "" ? "TODOS" : $P{modelo} ]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="416dd5f0-68f5-4da6-8c0a-2ba8eccc0d46"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="0" width="61" height="20" uuid="a7ac6dc0-b18b-4407-ba96-8930a3f39484"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="0" width="78" height="20" uuid="859a15d3-a0b5-468f-88c8-b4a7ede6a526"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="0" width="66" height="20" uuid="0e93764c-271f-45b7-8fc5-1be19b27ac09"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="0" width="79" height="20" uuid="ecfe2ab3-6d11-42ee-b359-4cedc3258607"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Em estoque]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="eb0b0363-e068-4d31-b7eb-37fa1d2f6e0e"/>
+			</line>
+			<staticText>
+				<reportElement x="101" y="0" width="138" height="20" uuid="8d162d19-2270-45c5-a02f-edaa806eb379"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="1029e787-cd33-4b4e-ac44-a6de55d562a0"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="3dca5887-bb6b-4f21-8c2d-a0bee9d78d73"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="0" width="138" height="20" uuid="4f06de86-fa43-4e30-ad6f-57d2ca0b2955"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="0" width="25" height="20" uuid="537c0191-1aba-4b7c-b504-415247850231"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anofabricacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="0" width="26" height="20" uuid="c784051e-a931-4a57-8ba2-8e19a09ef782"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anomodelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="0" width="66" height="20" uuid="15052de9-bcc2-4086-8979-162ba1a1521c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="327" y="0" width="78" height="20" uuid="93ca111f-a30e-43c4-a88f-42c87b84dd22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="0" width="79" height="20" uuid="ccc8d3c8-938d-46d1-bae9-f133a1b7a812"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emestoque} == 1 ? "Sim" : "Não"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="274" y="0" width="10" height="20" uuid="116f9242-5755-42cd-a2bd-8151cce5e308"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="405" y="0" width="118" height="20" uuid="dc32c23e-4e2c-41de-9d59-7457c70e8d0a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pág "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="523" y="0" width="33" height="20" uuid="5f369683-8569-4460-a4f2-217c4d0ad111"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

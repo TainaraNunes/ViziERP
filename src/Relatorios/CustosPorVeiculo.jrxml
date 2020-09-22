@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CustosPorVeiculo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cad97b3b-3e28-4a2a-bf10-2c960d11d466">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="modelo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="modelo_like" class="java.lang.String">
+		<defaultValueExpression><![CDATA["%"+$P{modelo}+"%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="placa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="placa_like" class="java.lang.String">
+		<defaultValueExpression><![CDATA["%"+$P{placa}+"%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="empresa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT VEICULOS.PLACA,
+       VEICULOS.MODELO,
+       VEICULOSCUSTOS.DATACOMPRA,
+       VEICULOSCUSTOS.DATAVENDA,
+       VEICULOSCUSTOS.PRECOCOMPRA,
+       VEICULOSCUSTOS.PRECOVENDA,
+       VEICULOSCUSTOS.CUSTOCOMBUSTIVEL,
+       VEICULOSCUSTOS.CUSTODESPACHANTE,
+       VEICULOSCUSTOS.CUSTOIMPOSTOS,
+       VEICULOSCUSTOS.CUSTOLATARIAPINTURA,
+       VEICULOSCUSTOS.CUSTOLIMPEZA,
+       VEICULOSCUSTOS.CUSTOMECANICA,
+       VEICULOSCUSTOS.CUSTOPECASACESSORIOS,
+       VEICULOSCUSTOS.CUSTOPNEUS,
+       VEICULOSCUSTOS.CUSTOTOTAL,
+       VEICULOSCUSTOS.MARGEMLUCRO
+FROM VEICULOSCUSTOS
+JOIN VEICULOS ON(VEICULOS.CODIGO = VEICULOSCUSTOS.VEICULOCODIGO)
+WHERE VEICULOS.PLACA LIKE $P{placa_like} AND
+      VEICULOS.MODELO LIKE $P{modelo_like}]]>
+	</queryString>
+	<field name="placa" class="java.lang.String"/>
+	<field name="modelo" class="java.lang.String"/>
+	<field name="datacompra" class="java.sql.Date"/>
+	<field name="datavenda" class="java.sql.Date"/>
+	<field name="precocompra" class="java.math.BigDecimal"/>
+	<field name="precovenda" class="java.math.BigDecimal"/>
+	<field name="custocombustivel" class="java.math.BigDecimal"/>
+	<field name="custodespachante" class="java.math.BigDecimal"/>
+	<field name="custoimpostos" class="java.math.BigDecimal"/>
+	<field name="custolatariapintura" class="java.math.BigDecimal"/>
+	<field name="custolimpeza" class="java.math.BigDecimal"/>
+	<field name="customecanica" class="java.math.BigDecimal"/>
+	<field name="custopecasacessorios" class="java.math.BigDecimal"/>
+	<field name="custopneus" class="java.math.BigDecimal"/>
+	<field name="custototal" class="java.math.BigDecimal"/>
+	<field name="margemlucro" class="java.math.BigDecimal"/>
+	<group name="CustoVeiculo" keepTogether="true">
+		<groupExpression><![CDATA[$F{placa}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="55" y="0" width="209" height="20" uuid="463eea5a-69d4-4a08-81c5-ffa124ffc99a"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="55" height="20" uuid="962b2b2d-4d3d-4958-81b9-84a46ce6af39"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{placa}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="21" uuid="064cb10d-3dea-4bf0-87b6-90b8b7e9bc33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Custos por Veículo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="2332447d-bca3-4b44-a765-67f25309ac62"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="a4cd3275-1edd-4592-a38c-6df4f6660f9b"/>
+			</line>
+			<textField>
+				<reportElement x="271" y="2" width="100" height="14" uuid="86232e4a-d0c4-46c9-a646-d750213714a5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{placa} == "" ? "TODAS" : $P{placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="17" width="100" height="13" uuid="411bdac0-2bc3-4be0-9011-146999b9372e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{modelo} == "" ? "TODOS" : $P{modelo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="231" y="17" width="39" height="13" uuid="89edf3ce-1bd8-4724-bbfe-6d400f1aa3c3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Modelo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="2" width="39" height="14" uuid="5b353530-0eb0-41c7-8f25-0d18a706bafd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Placa:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="2">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="14b7aaf2-7a9f-4340-b305-f807a27f3570"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="153" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="151" width="555" height="1" uuid="1944d066-be53-4850-89d4-02590deb638a"/>
+			</line>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="86" y="2" width="64" height="20" uuid="530457ab-336b-48bd-a9d5-ade2567d993f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datacompra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="86" y="24" width="64" height="20" uuid="5a30a5d7-d812-4d4c-a88f-4a7d198181c3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datavenda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="266" y="2" width="64" height="20" uuid="9cb920c6-c07a-4af4-98dc-c16cb40e701e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precocompra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="266" y="24" width="64" height="20" uuid="0098da52-753f-458b-befa-4d7de8d9080e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precovenda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="82" y="65" width="64" height="20" uuid="bae81f2e-cd0c-492c-a4df-3e5b635c6706"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custocombustivel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="82" y="87" width="64" height="20" uuid="a5a072eb-53a9-44fb-88cb-871d91d4cb1b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custodespachante}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="82" y="109" width="64" height="20" uuid="d59a5aab-5e73-439b-8f7b-80a970169355"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custoimpostos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="82" y="131" width="64" height="20" uuid="94938b55-6ee1-4696-8666-e49751ed978c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custolatariapintura}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="292" y="65" width="64" height="20" uuid="c46f190b-a3c7-462f-af60-d0829e5f3e93"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custolimpeza}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="292" y="87" width="64" height="20" uuid="300eec4b-13ab-4ffa-91d9-18f2da1ffa8c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customecanica}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="292" y="109" width="64" height="20" uuid="d1736ae4-e16f-4de0-a6a8-a024fdb9b25b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custopecasacessorios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="292" y="131" width="64" height="20" uuid="ecbf8e02-67ef-4762-94bf-0c0928da43d7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custopneus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="2" width="84" height="20" uuid="c84edd81-15ff-43c6-ac95-c7cc45ba189a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Data de Compra:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="2" width="89" height="20" uuid="594ef442-34fd-4ed7-b6cf-2cb1894da65a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Preço de Compra:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="24" width="84" height="20" uuid="ca7ceab4-defb-4f6d-97e9-581e57031a98"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Data de Venda:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="24" width="89" height="20" uuid="80f85b32-47f2-41cb-b14b-5465f16ad3c9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Preço de Venda:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="45" width="50" height="18" uuid="12aef048-b5af-4628-ac8c-83637c028b01"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Custos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="80" height="20" uuid="4d8fc05e-3f0f-4e67-88b1-378df2a1567c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Combustível:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="87" width="80" height="20" uuid="de20c3f3-c199-47a9-a008-35f2cd191c23"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Despachante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="109" width="80" height="20" uuid="6be01934-b440-46a4-bed9-3c05a8d960ab"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Impostos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="131" width="80" height="20" uuid="ab364746-7c28-4879-a184-c6e7d3c27d2d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Lataria e Pintura:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="65" width="100" height="20" uuid="1039e708-896c-45e0-b1ce-53c17a0e08f8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Limpeza:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="87" width="100" height="20" uuid="ce647665-57f6-4544-abd4-4f0f27b5f0d0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Mecânica:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="109" width="100" height="20" uuid="8f988a17-1f62-4a03-b04d-f9e1aa2a0bf7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Peças e Acessórios:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="131" width="100" height="20" uuid="24540e7e-e0b6-49cd-a15a-20ed532c85fa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Pneus:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="444f3116-85dd-45ce-8ffd-d0d2e5225560"/>
+			</line>
+			<line>
+				<reportElement x="0" y="46" width="555" height="1" uuid="b3238982-de63-4c38-81aa-28c2c95b6361"/>
+			</line>
+			<staticText>
+				<reportElement x="371" y="2" width="78" height="20" uuid="dce04312-f5d5-4f00-9cf3-a32a226508a5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total de Custos:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="451" y="2" width="65" height="20" uuid="692f296f-93ff-4d4f-b08b-2dc838108d35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{custototal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="24" width="99" height="20" uuid="a612e470-e92f-43fb-a495-6465a76c99a7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Margem de Lucro:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="451" y="24" width="65" height="20" uuid="3821fd41-6590-4c07-baa8-4972e07398bf"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{margemlucro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

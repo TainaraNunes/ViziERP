@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OrcamentoServicos" pageWidth="555" pageHeight="802" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Error" uuid="b23946f8-58c9-4a30-9ef7-a8fd87c88526">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numeroOrcamento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+   SERVICOS.DESCRICAO,
+   ORCAMENTOSSERVICOS.QUANTIDADECOMPARTIMENTOS,
+   ORCAMENTOSSERVICOS.VALORUNITARIOSERVICO,
+   ORCAMENTOSSERVICOS.VALORTOTALSERVICO
+FROM ORCAMENTOSSERVICOS
+JOIN SERVICOS ON (SERVICOS.CODIGO = ORCAMENTOSSERVICOS.SERVICOCODIGO)
+WHERE ORCAMENTONUMERO = $P{numeroOrcamento}]]>
+	</queryString>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="quantidadecompartimentos" class="java.lang.Integer"/>
+	<field name="valorunitarioservico" class="java.math.BigDecimal"/>
+	<field name="valortotalservico" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="9d7df684-2594-4cb7-ace7-346e96738613"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serviços]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="378" y="2" width="68" height="15" uuid="31b13ac3-2686-4dce-9a6b-9b8ff8fc392b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="2" width="101" height="15" uuid="a8051d13-90a2-4303-990c-843cfe3ec928"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="378" height="15" uuid="d3b33578-2f7f-4078-be96-5b6e63967953"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="17" width="555" height="1" uuid="227df843-3cf3-430a-ba2d-03812a4672ef"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="a9b7bdce-ad80-447d-93bb-8986630a37c1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="380" y="1" width="67" height="15" uuid="4f671f5d-e486-4ffc-8d2c-e5c7ec87a7da"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantidadecompartimentos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="449" y="1" width="102" height="15" uuid="0cdea2a9-43ae-475e-8c94-b4c6c1e4946a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valortotalservico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="379" height="15" uuid="7aec86af-f802-4155-b101-1720ee5ac463"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

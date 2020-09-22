@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orcamento_financeiro" columnCount="3" printOrder="Horizontal" pageWidth="555" pageHeight="802" whenNoDataType="NoDataSection" columnWidth="185" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Error" uuid="104c9b06-d495-41aa-bc6c-7e0e84415410">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numeroOrcamento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *
+FROM ORCAMENTOSFINANCEIRO
+WHERE ORCAMENTONUMERO = $P{numeroOrcamento}]]>
+	</queryString>
+	<field name="orcamentonumero" class="java.lang.Integer"/>
+	<field name="vencimento" class="java.sql.Date"/>
+	<field name="parcelavalor" class="java.math.BigDecimal"/>
+	<field name="parcelanumero" class="java.lang.Integer"/>
+	<field name="parcelacondicao" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="15" uuid="ef9ab031-47f4-47bb-92c4-a4ff037f9f8c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condições de Pagamento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="555" height="1" uuid="de8d03d7-6f3c-4c5a-b24b-58937057681c"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="46" y="0" width="59" height="15" uuid="e72fdb87-0e6e-4b68-b9a0-b4d5702389b6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="0" width="70" height="15" uuid="1ff789c5-9aeb-46e2-bfcc-992e23455008"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="0" width="39" height="15" uuid="206c4364-d7c9-435f-92bd-342d640c02d1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prazo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="186" height="1" uuid="a94144ff-7c0f-4654-b081-fbefae712464"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="1" width="39" height="15" uuid="5591cfc2-f306-4d90-9ca3-ec1cf4c497eb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parcelacondicao}.intValue() == 0 ? "Entrada" : $F{parcelacondicao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="46" y="1" width="59" height="15" uuid="578b27c3-e9c1-4e3c-8c40-387f7c60fad0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="105" y="1" width="70" height="15" uuid="b6c4f9c1-0db5-458c-9d47-eafd7782ae67"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parcelavalor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

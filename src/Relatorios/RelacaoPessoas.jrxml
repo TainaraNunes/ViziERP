@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelacaoPessoas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e0c5f9a-da4b-4451-b450-5b10d22201ea">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="razaoSocialFantasia" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="razaoSocialFantasiaLike" class="java.lang.String">
+		<defaultValueExpression><![CDATA["%"+$P{razaoSocialFantasia}+"%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cidade" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cidadeLike" class="java.lang.String">
+		<defaultValueExpression><![CDATA["%"+$P{cidade}+"%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoPessoa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoPessoaWhere" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataVencimentoLicencaInicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataVencimentoLicencaFinal" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataVencimentoLicenca" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT PESSOAS.CNPJ,
+       PESSOAS.CPF,
+       PESSOAS.RAZAOSOCIAL,
+       PESSOAS.CIDADE,
+       PESSOAS.ESTADO,
+       PESSOAS.TELEFONE,
+       PESSOAS.CELULAR,
+       CLIENTESDADOSTECNICOS.VENCIMENTOLICENCAOPERACAO
+FROM PESSOAS
+LEFT JOIN CLIENTESDADOSTECNICOS ON(CLIENTESDADOSTECNICOS.CLIENTECODIGO = PESSOAS.CODIGO)
+WHERE RAZAOSOCIAL LIKE $P{razaoSocialFantasiaLike} AND
+      CIDADE LIKE $P{cidadeLike} AND
+      CASE
+         WHEN $P{tipoPessoa} = 1 THEN
+            TRUE
+         WHEN $P{tipoPessoa} = 2 THEN
+            TIPOPESSOA = $P{tipoPessoaWhere}
+      END
+AND
+      CASE
+         WHEN $P{dataVencimentoLicenca} = 1 THEN
+             TRUE
+         WHEN $P{dataVencimentoLicenca} = 2 THEN
+             CLIENTESDADOSTECNICOS.VENCIMENTOLICENCAOPERACAO BETWEEN $P{dataVencimentoLicencaInicial} AND $P{dataVencimentoLicencaFinal}
+      END
+ORDER BY RAZAOSOCIAL, CIDADE, ESTADO]]>
+	</queryString>
+	<field name="cnpj" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="razaosocial" class="java.lang.String"/>
+	<field name="cidade" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="celular" class="java.lang.String"/>
+	<field name="vencimentolicencaoperacao" class="java.sql.Date"/>
+	<variable name="cpfcnpj" class="java.lang.String">
+		<variableExpression><![CDATA[$F{cnpj}.trim().equals("") ? $F{cpf} : $F{cnpj} ]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="682fd79a-6a21-4088-86c7-86c829706a6a"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="2" width="555" height="18" uuid="64ea9ad1-b203-4115-831a-1731c284fff9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Relação de Clientes e Fornecedores]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="064292c2-cd7d-4430-8153-a7cd3e628820"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="91" height="20" uuid="05f55205-63dd-461c-9641-729ff7f45f57"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF/CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="1" width="147" height="20" uuid="23253a1c-2814-4f4b-9305-3466777633d8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razão Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="1" width="93" height="20" uuid="608feb04-4c94-4e75-8397-39b4fd6df280"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="1" width="18" height="20" uuid="2750a3ec-13a9-4d92-8704-8a872367ea42"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="1" width="61" height="20" uuid="9322ebd8-1edc-4328-a6b3-2fde04314091"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="1" width="74" height="20" uuid="6d93307d-672d-4d1d-89c5-cedf51847ab3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="497" y="1" width="57" height="20" uuid="d71ecf58-74a4-4c27-84b0-9f51179a58e6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vcto Licença]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="d04e3585-aa37-4a3e-85b3-1b64313663e3"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="98" y="1" width="147" height="20" uuid="6d41c529-b999-455d-933d-36ff92184117"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{razaosocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="1" width="93" height="20" uuid="2e484fd0-0915-421a-b661-646c46f09218"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="1" width="18" height="20" uuid="675ef95e-ebe2-4e1d-b1cb-dac68327d9e0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="1" width="61" height="20" uuid="11a93b72-610e-41c2-aef8-e379fb1617bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="1" width="74" height="20" uuid="2203214d-48ea-4f49-9ba0-cf20137f1c0f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="497" y="1" width="57" height="20" uuid="6680edad-1a1c-4d40-9076-b6abdeec0f02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vencimentolicencaoperacao} != null ? $F{vencimentolicencaoperacao} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="91" height="20" uuid="0e3554a5-f7ad-488b-b721-ca95d543cdcc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{cpfcnpj}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="55" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

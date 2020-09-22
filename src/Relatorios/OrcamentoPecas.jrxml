@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OrcamentoPecas" pageWidth="555" pageHeight="802" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Error" uuid="12cb94fa-accb-4f51-a2a7-10750ea7f2b8">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numeroOrcamento" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+   PRODUTOS.DESCRICAO,
+   ORCAMENTOSPECAS.QUANTIDADE,
+   ORCAMENTOSPECAS.VALORUNITARIOPECA,
+   ORCAMENTOSPECAS.VALORTOTALPECA
+FROM ORCAMENTOSPECAS
+JOIN PRODUTOS ON (PRODUTOS.CODIGO = ORCAMENTOSPECAS.PECACODIGO)
+WHERE ORCAMENTONUMERO = $P{numeroOrcamento}]]>
+	</queryString>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="quantidade" class="java.lang.Integer"/>
+	<field name="valorunitariopeca" class="java.math.BigDecimal"/>
+	<field name="valortotalpeca" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="44f5741e-f3fa-4b20-9a84-b9c406509b43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peças]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="db5f7f38-69aa-4e0f-a76f-ce11a0ca4f90"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="271" height="15" uuid="07aa180f-1ae8-4226-8737-9de35273fac5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="1" width="100" height="15" uuid="14309679-c4b4-4ddd-80b5-bc3ebc9dcabc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Unitário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="1" width="100" height="15" uuid="be142064-4cf5-4234-bd3e-8dad854b3591"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="1" width="77" height="15" uuid="8129a6c4-5639-4560-ab4a-13e52a00dda7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="16" width="555" height="1" uuid="1484a1d7-b693-4d22-8241-69e69751a1e8"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="271" height="15" uuid="42a0450c-70e2-4838-af14-60f32f92fa92"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="1" width="77" height="15" uuid="478df25c-cb91-48af-8759-0b74abd2340b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="349" y="1" width="100" height="15" uuid="c8193a10-b1fc-4f70-aad0-a2dc031c44a0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorunitariopeca}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="452" y="1" width="100" height="15" uuid="25f6c12f-46ba-43a8-bf81-c9c86b2eff35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valortotalpeca}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
