@@ -1214,7 +1214,8 @@ public class CadastroPessoas extends javax.swing.JFrame {
         txtCelular.setText("");
         txtEmail.setText("");
         txtAtividade.setText("");
-    
+        txtPesquisaPessoa.requestFocus();
+        
         txtContatoResponsavel.setText("");
         txtTanquesQuantidade.setText("");
         cmbTanquesMarca1.setSelectedItem("SELECIONE");
