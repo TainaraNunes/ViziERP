@@ -14,7 +14,8 @@ public class DaoDespesasVeiculos {
     public void gravarDespesaVeiculo(BeansDespesasVeiculos desp) {
         conecta.conexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VEICULOSDESPESAS (DATALANCAMENTO, VEICULOCODIGO, FORNECEDORCODIGO, DESPESADESCRICAO, CATEGORIA, DESPESAVALOR) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VEICULOSDESPESAS (DATALANCAMENTO, VEICULOCODIGO, FORNECEDORCODIGO, DESPESADESCRICAO, CATEGORIA, DESPESAVALOR) "
+                    + "                                           VALUES (?, ?, ?, ?, ?, ?)");
             
             if (!(desp.getDataLancamento()== null)) {
                 pst.setDate(1, java.sql.Date.valueOf(desp.getDataLancamento()));
