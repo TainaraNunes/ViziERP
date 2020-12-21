@@ -10,16 +10,24 @@ public class BeansCustosVeiculos {
   private BigDecimal precoVenda;
   private LocalDate dataCompra;
   private LocalDate dataVenda;
-  private BigDecimal totalDespesas;
+  private BigDecimal custosBateria;
+  private BigDecimal custosCarroceria;
   private BigDecimal custosCombustivel;
   private BigDecimal custosDespachante;
+  private BigDecimal custosEletrica;
   private BigDecimal custosImpostos;
   private BigDecimal custosLatariaPintura;
   private BigDecimal custosLimpeza;
   private BigDecimal custosMecanica;
+  private BigDecimal custosMultas;
   private BigDecimal custosPecasAcessorios;
   private BigDecimal custosPneus;
-  private BigDecimal margemLucro;
+  private BigDecimal custosRecapagem;
+  private BigDecimal custosTapecaria;
+  private BigDecimal custosTornearia;
+  private BigDecimal custosOutros;
+  private BigDecimal margemLucroValor;   
+  private BigDecimal totalDespesas;
 
     public int getVeiculoCodigo() {
         return veiculoCodigo;
@@ -61,12 +69,20 @@ public class BeansCustosVeiculos {
         this.dataVenda = dataVenda;
     }
 
-    public BigDecimal getTotalDespesas() {
-        return totalDespesas;
+    public BigDecimal getCustosBateria() {
+        return custosBateria;
     }
 
-    public void setTotalDespesas(BigDecimal totalDespesas) {
-        this.totalDespesas = totalDespesas;
+    public void setCustosBateria(BigDecimal custosBateria) {
+        this.custosBateria = custosBateria;
+    }
+
+    public BigDecimal getCustosCarroceria() {
+        return custosCarroceria;
+    }
+
+    public void setCustosCarroceria(BigDecimal custosCarroceria) {
+        this.custosCarroceria = custosCarroceria;
     }
 
     public BigDecimal getCustosCombustivel() {
@@ -83,6 +99,14 @@ public class BeansCustosVeiculos {
 
     public void setCustosDespachante(BigDecimal custosDespachante) {
         this.custosDespachante = custosDespachante;
+    }
+
+    public BigDecimal getCustosEletrica() {
+        return custosEletrica;
+    }
+
+    public void setCustosEletrica(BigDecimal custosEletrica) {
+        this.custosEletrica = custosEletrica;
     }
 
     public BigDecimal getCustosImpostos() {
@@ -117,6 +141,14 @@ public class BeansCustosVeiculos {
         this.custosMecanica = custosMecanica;
     }
 
+    public BigDecimal getCustosMultas() {
+        return custosMultas;
+    }
+
+    public void setCustosMultas(BigDecimal custosMultas) {
+        this.custosMultas = custosMultas;
+    }
+    
     public BigDecimal getCustosPecasAcessorios() {
         return custosPecasAcessorios;
     }
@@ -133,11 +165,51 @@ public class BeansCustosVeiculos {
         this.custosPneus = custosPneus;
     }
 
-    public BigDecimal getMargemLucro() {
-        return margemLucro;
+    public BigDecimal getCustosRecapagem() {
+        return custosRecapagem;
     }
 
-    public void setMargemLucro(BigDecimal margemLucro) {
-        this.margemLucro = margemLucro;
+    public void setCustosRecapagem(BigDecimal custosRecapagem) {
+        this.custosRecapagem = custosRecapagem;
+    }
+
+    public BigDecimal getCustosTapecaria() {
+        return custosTapecaria;
+    }
+
+    public void setCustosTapecaria(BigDecimal custosTapecaria) {
+        this.custosTapecaria = custosTapecaria;
+    }
+
+    public BigDecimal getCustosTornearia() {
+        return custosTornearia;
+    }
+
+    public void setCustosTornearia(BigDecimal custosTornearia) {
+        this.custosTornearia = custosTornearia;
+    }
+
+    public BigDecimal getCustosOutros() {
+        return custosOutros;
+    }
+
+    public void setCustosOutros(BigDecimal custosOutros) {
+        this.custosOutros = custosOutros;
+    }
+
+    public BigDecimal getMargemLucroValor() {
+        return margemLucroValor;
+    }
+
+    public void setMargemLucroValor(BigDecimal margemLucroValor) {
+        this.margemLucroValor = margemLucroValor;
+    }
+
+    public BigDecimal getTotalDespesas() {
+        return totalDespesas;
+    }
+
+    public void setTotalDespesas(BigDecimal totalDespesas) {
+        this.totalDespesas = totalDespesas;
     }
 }
