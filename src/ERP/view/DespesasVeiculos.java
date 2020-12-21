@@ -135,7 +135,7 @@ public class DespesasVeiculos extends javax.swing.JFrame {
 
         jLabel7.setText("Categoria:");
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BATERIA", "COMBUSTIVEL", "DESPACHANTE", "ELETRICA", "IMPOSTOS", "IPVA", "LATARIA E PINTURA", "LIMPEZA", "MECANICA", "MULTAS", "PECAS E ACESSORIOS", "PNEUS", "RECAPAGEM", "SERVICOS ELETRICOS", "TAPECARIA", "TORNEARIA" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BATERIA", "CARROCERIA", "COMBUSTIVEL", "DESPACHANTE", "ELETRICA", "IMPOSTOS", "LATARIA E PINTURA", "LIMPEZA", "MECANICA", "MULTAS", "PECAS E ACESSORIOS", "PNEUS", "RECAPAGEM", "TAPECARIA", "TORNEARIA", "OUTROS" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
