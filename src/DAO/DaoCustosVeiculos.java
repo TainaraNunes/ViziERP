@@ -13,8 +13,9 @@ public class DaoCustosVeiculos {
     public void gravarCustosVeiculo(BeansCustosVeiculos cus) {
         conecta.conexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VEICULOSCUSTOS(DATACOMPRA, DATAVENDA, PRECOCOMPRA, PRECOVENDA, CUSTOCOMBUSTIVEL, CUSTODESPACHANTE, CUSTOIMPOSTOS, CUSTOLATARIAPINTURA, "
-                                                               + "                           CUSTOLIMPEZA, CUSTOMECANICA, CUSTOPECASACESSORIOS, CUSTOPNEUS, CUSTOTOTAL, MARGEMLUCRO, VEICULOCODIGO)"
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VEICULOSCUSTOS(DATACOMPRA, DATAVENDA, PRECOCOMPRA, PRECOVENDA, CUSTOBATERIA, CUSTOCARROCERIA, CUSTOCOMBUSTIVEL, CUSTODESPACHANTE, "
+                                                               + "                           CUSTOELETRICA, CUSTOIMPOSTOS, CUSTOLATARIAPINTURA, CUSTOLIMPEZA, CUSTOMECANICA, CUSTOMULTAS, CUSTOPECASACESSORIOS, "
+                                                               + "                           CUSTOPNEUS, CUSTORECAPAGEM, CUSTOTAPECARIA, CUSTOTORNEARIA, CUSTOOUTROS, CUSTOTOTAL, MARGEMLUCRO, VEICULOCODIGO)"
                                                                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             if (!(cus.getDataCompra()== null)) {
                 pst.setDate(1, java.sql.Date.valueOf(cus.getDataCompra()));
@@ -30,17 +31,25 @@ public class DaoCustosVeiculos {
             
             pst.setBigDecimal(3, cus.getPrecoCompra());
             pst.setBigDecimal(4, cus.getPrecoVenda());
-            pst.setBigDecimal(5, cus.getCustosCombustivel());
-            pst.setBigDecimal(6, cus.getCustosDespachante());
-            pst.setBigDecimal(7, cus.getCustosImpostos());
-            pst.setBigDecimal(8, cus.getCustosLatariaPintura());
-            pst.setBigDecimal(9, cus.getCustosLimpeza());
-            pst.setBigDecimal(10, cus.getCustosMecanica());
-            pst.setBigDecimal(11, cus.getCustosPecasAcessorios());
-            pst.setBigDecimal(12, cus.getCustosPneus());
-            pst.setBigDecimal(13, cus.getTotalDespesas());
-            pst.setBigDecimal(14, cus.getMargemLucro());
-            pst.setInt(15, cus.getVeiculoCodigo());
+            pst.setBigDecimal(5, cus.getCustosBateria());
+            pst.setBigDecimal(6, cus.getCustosCarroceria());
+            pst.setBigDecimal(7, cus.getCustosCombustivel());
+            pst.setBigDecimal(8, cus.getCustosDespachante());
+            pst.setBigDecimal(9, cus.getCustosEletrica());
+            pst.setBigDecimal(10, cus.getCustosImpostos());
+            pst.setBigDecimal(11, cus.getCustosLatariaPintura());
+            pst.setBigDecimal(12, cus.getCustosLimpeza());
+            pst.setBigDecimal(13, cus.getCustosMecanica());
+            pst.setBigDecimal(14, cus.getCustosMultas());
+            pst.setBigDecimal(15, cus.getCustosPecasAcessorios());
+            pst.setBigDecimal(16, cus.getCustosPneus());
+            pst.setBigDecimal(17, cus.getCustosRecapagem());
+            pst.setBigDecimal(18, cus.getCustosTapecaria());
+            pst.setBigDecimal(19, cus.getCustosTornearia());
+            pst.setBigDecimal(20, cus.getCustosOutros());
+            pst.setBigDecimal(21, cus.getTotalDespesas());
+            pst.setBigDecimal(22, cus.getMargemLucroValor());
+            pst.setInt(23, cus.getVeiculoCodigo());
             
             pst.execute();
             
@@ -54,8 +63,10 @@ public class DaoCustosVeiculos {
     public void alterarCustosVeiculo(BeansCustosVeiculos cus) {
         conecta.conexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VEICULOSCUSTOS SET DATACOMPRA = ?, DATAVENDA = ?, PRECOCOMPRA = ?, PRECOVENDA = ?, CUSTOCOMBUSTIVEL = ?, CUSTODESPACHANTE = ?, CUSTOIMPOSTOS = ?,  "
-                                                               + "                          CUSTOLATARIAPINTURA = ?, CUSTOLIMPEZA = ?, CUSTOMECANICA = ?, CUSTOPECASACESSORIOS = ?, CUSTOPNEUS = ?, CUSTOTOTAL = ?, MARGEMLUCRO = ? "
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VEICULOSCUSTOS SET DATACOMPRA = ?, DATAVENDA = ?, PRECOCOMPRA = ?, PRECOVENDA = ?, CUSTOBATERIA = ?, CUSTOCARROCERIA = ?, "
+                                                               + "                          CUSTOCOMBUSTIVEL = ?, CUSTODESPACHANTE = ?, CUSTOELETRICA = ?, CUSTOIMPOSTOS = ?, CUSTOLATARIAPINTURA = ?, "
+                                                               + "                          CUSTOLIMPEZA = ?, CUSTOMECANICA = ?, CUSTOMULTAS = ?, CUSTOPECASACESSORIOS = ?, CUSTOPNEUS = ?, CUSTORECAPAGEM = ?, "
+                                                               + "                          CUSTOTAPECARIA = ?, CUSTOTORNEARIA = ?, CUSTOTOTAL = ?, MARGEMLUCRO = ? "
                                                                + " WHERE VEICULOCODIGO = ? ");
             if (!(cus.getDataCompra()== null)) {
                 pst.setDate(1, java.sql.Date.valueOf(cus.getDataCompra()));
@@ -71,17 +82,25 @@ public class DaoCustosVeiculos {
             
             pst.setBigDecimal(3, cus.getPrecoCompra());
             pst.setBigDecimal(4, cus.getPrecoVenda());
-            pst.setBigDecimal(5, cus.getCustosCombustivel());
-            pst.setBigDecimal(6, cus.getCustosDespachante());
-            pst.setBigDecimal(7, cus.getCustosImpostos());
-            pst.setBigDecimal(8, cus.getCustosLatariaPintura());
-            pst.setBigDecimal(9, cus.getCustosLimpeza());
-            pst.setBigDecimal(10, cus.getCustosMecanica());
-            pst.setBigDecimal(11, cus.getCustosPecasAcessorios());
-            pst.setBigDecimal(12, cus.getCustosPneus());
-            pst.setBigDecimal(13, cus.getTotalDespesas());
-            pst.setBigDecimal(14, cus.getMargemLucro());
-            pst.setInt(15, cus.getVeiculoCodigo());
+            pst.setBigDecimal(5, cus.getCustosBateria());
+            pst.setBigDecimal(6, cus.getCustosCarroceria());
+            pst.setBigDecimal(7, cus.getCustosCombustivel());
+            pst.setBigDecimal(8, cus.getCustosDespachante());
+            pst.setBigDecimal(9, cus.getCustosEletrica());
+            pst.setBigDecimal(10, cus.getCustosImpostos());
+            pst.setBigDecimal(11, cus.getCustosLatariaPintura());
+            pst.setBigDecimal(12, cus.getCustosLimpeza());
+            pst.setBigDecimal(13, cus.getCustosMecanica());
+            pst.setBigDecimal(14, cus.getCustosMultas());
+            pst.setBigDecimal(15, cus.getCustosPecasAcessorios());
+            pst.setBigDecimal(16, cus.getCustosPneus());
+            pst.setBigDecimal(17, cus.getCustosRecapagem());
+            pst.setBigDecimal(18, cus.getCustosTapecaria());
+            pst.setBigDecimal(19, cus.getCustosTornearia());
+            pst.setBigDecimal(20, cus.getCustosOutros());
+            pst.setBigDecimal(21, cus.getTotalDespesas());
+            pst.setBigDecimal(22, cus.getMargemLucroValor());
+            pst.setInt(23, cus.getVeiculoCodigo());
             
             pst.execute();
             
