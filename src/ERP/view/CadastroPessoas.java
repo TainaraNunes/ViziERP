@@ -9,6 +9,7 @@ import Beans.Teclas;
 import Conection.ConectaBD;
 import DAO.DaoFuncoes;
 import DAO.DaoPessoas;
+import java.sql.SQLException;
 
 public class CadastroPessoas extends javax.swing.JFrame {
 
@@ -310,6 +311,11 @@ public class CadastroPessoas extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCnpj.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        txtCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCnpjFocusLost(evt);
+            }
+        });
         txtCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCnpjKeyTyped(evt);
@@ -322,6 +328,11 @@ public class CadastroPessoas extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCpf.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCpfFocusLost(evt);
+            }
+        });
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCpfKeyTyped(evt);
@@ -970,39 +981,39 @@ public class CadastroPessoas extends javax.swing.JFrame {
             txtRazaoSocial.requestFocus();
             return;
         } else if (txtFantasia.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Informe o nome fantasia da pessoa!");
+            JOptionPane.showMessageDialog(null, "Informe o nome fantasia!");
             txtFantasia.requestFocus();
             return;
         } else if (txtCnpj.getText().trim().length() < 18 && txtCpf.getText().trim().length() < 14) {
-            JOptionPane.showMessageDialog(null, "Informe o CNPJ ou o CPF da pessoa!");
+            JOptionPane.showMessageDialog(null, "Informe o CNPJ ou o CPF!");
             txtCnpj.requestFocus();
             return;
         } else if (txtEndereco.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Informe o endereço da pessoa!");
+            JOptionPane.showMessageDialog(null, "Informe o endereço!");
             txtEndereco.requestFocus();
             return;
         } else if (txtNumero.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Informe o número do endereço da pessoa!");
+            JOptionPane.showMessageDialog(null, "Informe o número do endereço!");
             txtNumero.requestFocus();
             return;
         } else if (txtBairro.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Informe o bairro da pessoa!");
+            JOptionPane.showMessageDialog(null, "Informe o bairro!");
             txtBairro.requestFocus();
             return;
         } else if (txtCep.getText().trim().length() < 9) {
-            JOptionPane.showMessageDialog(null, "Informe o CEP do endereço da pessoa!");
+            JOptionPane.showMessageDialog(null, "Informe o CEP do endereço!");
             txtCep.requestFocus();
             return;
         } else if (txtCidade.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione a cidade da pessoa!");
+            JOptionPane.showMessageDialog(null, "Selecione a cidade!");
             btnPesquisaCidades.requestFocus();
             return;
         } else if (txtEstado.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione o estado da pessoa!");
+            JOptionPane.showMessageDialog(null, "Selecione o estado!");
             btnPesquisaCidades.requestFocus();
             return;
         } else if (txtPais.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione o país da pessoa!");
+            JOptionPane.showMessageDialog(null, "Selecione o país!");
             btnPesquisaCidades.requestFocus();
             return;
         } else if (txtTelefone.getText().trim().length() < 13 && txtCelular.getText().trim().length() < 14) {
@@ -1102,19 +1113,19 @@ public class CadastroPessoas extends javax.swing.JFrame {
         } 
         
         if (txtVencimentoLicenca.getText().trim().length() == 10) {
-            pess.setVencimentoLicencaOperacao(funcoes.DataFormatoLocalDate(txtVencimentoLicenca.getText())); 
+            pess.setVencimentoLicencaOperacao(funcoes.StringParaLocalDate(txtVencimentoLicenca.getText())); 
         } else {
             pess.setVencimentoLicencaOperacao(null);
         }
         
         if (txtDataFabricacaoTanque.getText().trim().length() == 10){
-            pess.setDataFabricacaoTanque(funcoes.DataFormatoLocalDate(txtDataFabricacaoTanque.getText())); 
+            pess.setDataFabricacaoTanque(funcoes.StringParaLocalDate(txtDataFabricacaoTanque.getText())); 
         } else {
             pess.setDataFabricacaoTanque(null);
         } 
         
         if (txtDataFabricacaoBomba.getText().trim().length() == 10){
-            pess.setDataFabricacaoBomba(funcoes.DataFormatoLocalDate(txtDataFabricacaoBomba.getText())); 
+            pess.setDataFabricacaoBomba(funcoes.StringParaLocalDate(txtDataFabricacaoBomba.getText())); 
         } else {
             pess.setDataFabricacaoBomba(null);
         }         
@@ -1194,6 +1205,40 @@ public class CadastroPessoas extends javax.swing.JFrame {
         obj.setResizable(false);
 
     }//GEN-LAST:event_btnRelatorioPessoasActionPerformed
+
+    private void txtCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCnpjFocusLost
+        if (incluindo == 1) {
+            conecta.conexao();
+            conecta.executaSql("SELECT * FROM PESSOAS WHERE CNPJ = '" + txtCnpj.getText() + "'");
+            try {
+                if (conecta.rs.first()) {
+                    JOptionPane.showMessageDialog(null, "CNPJ já cadastrado, verifique!");
+                    txtCnpj.setText("");
+                    txtCnpj.requestFocus();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao consultar cadastro! \n ERRO: " + ex);
+            }
+            conecta.desconecta();            
+        }
+    }//GEN-LAST:event_txtCnpjFocusLost
+
+    private void txtCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusLost
+        if (incluindo == 1) {
+            conecta.conexao();
+            conecta.executaSql("SELECT * FROM PESSOAS WHERE CPF = '" + txtCpf.getText() + "'");
+            try {
+                if (conecta.rs.first()) {
+                    JOptionPane.showMessageDialog(null, "CPF já cadastrado, verifique!");
+                    txtCpf.setText("");
+                    txtCpf.requestFocus();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao consultar cadastro! \n ERRO: " + ex);
+            }
+            conecta.desconecta();  
+        }
+    }//GEN-LAST:event_txtCpfFocusLost
 
     public void limpaCampos() {
         txtCodigo.setText(String.valueOf(dao.codigoPessoa())); 

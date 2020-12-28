@@ -647,6 +647,7 @@
                 <Property name="focusLostBehavior" type="int" value="3"/>
               </Properties>
               <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCnpjFocusLost"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCnpjKeyTyped"/>
               </Events>
               <AuxValues>
@@ -661,6 +662,7 @@
                 <Property name="focusLostBehavior" type="int" value="3"/>
               </Properties>
               <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCpfFocusLost"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCpfKeyTyped"/>
               </Events>
               <AuxValues>
