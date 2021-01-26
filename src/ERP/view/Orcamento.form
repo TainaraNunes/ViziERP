@@ -1285,9 +1285,6 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JTextPane" name="txtObservacoes">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="a) Os compartimentos dos tanques que ser&#xe3;o ensaiados dever&#xe3;o conter no m&#xe1;ximo 96 cm de combust&#xed;vel para que o ENSAIO N&#xc3;O VOLUM&#xc9;TRICO seja realizado.&#xa;b) As bocas de descarga e de visita de todos os compartimentos dos tanques que ser&#xe3;o ensaiados dever&#xe3;o estar secas.       &#xa;c) As bombas de abastecimento veicular, interligadas aos compartimentos dos tanques e cujas tubula&#xe7;&#xf5;es ser&#xe3;o ensaiadas, dever&#xe3;o ter seu funcionamento interrompido quando solicitado pelo T&#xe9;cnico de Campo que realizar&#xe1; o ensaio, obedecendo a um m&#xed;nimo de 15 minutos antes do in&#xed;cio do ensaio. &#xa;d) O ensaio ser&#xe1; cobrado independente do resultado. &#xa;e) Os compartimentos dos tanques que ser&#xe3;o ensaiados n&#xe3;o poder&#xe3;o ser abastecidos nas 2 horas que antecedem ao in&#xed;cio da realiza&#xe7;&#xe3;o do ensaio e durante a realiza&#xe7;&#xe3;o do mesmo.&#xa;f) Or&#xe7;amento promocional v&#xe1;lido para 07 dias ap&#xf3;s o envio, podendo sofrer altera&#xe7;&#xe3;o ap&#xf3;s o vencimento."/>
-                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
@@ -1367,6 +1364,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCancelarOrcamento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnImprimir" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnSair" linkSize="1" min="-2" pref="54" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1382,6 +1381,7 @@
                       <Component id="btnCancelarOrcamento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAbandonar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAprovarOrcamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -1440,6 +1440,14 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnImprimir">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Imprimir"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImprimirActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

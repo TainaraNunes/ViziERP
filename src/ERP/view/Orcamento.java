@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -32,6 +30,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 public class Orcamento extends javax.swing.JFrame {
 
@@ -57,11 +57,11 @@ public class Orcamento extends javax.swing.JFrame {
     private final String diretorioSubrelatorioPecas = "/Relatorios/OrcamentoPecas.jasper";
     
     public String textoFixoObservacoes = "a) Os compartimentos dos tanques que serão ensaiados deverão conter no máximo 96 cm de combustível para que o ENSAIO NÃO VOLUMÉTRICO seja realizado.\n"
-            + "b) As bocas de descarga e de visita de todos os compartimentos dos tanques que serão ensaiados deverão estar secas.       \n"
-            + "c) As bombas de abastecimento veicular, interligadas aos compartimentos dos tanques e cujas tubulações serão ensaiadas, deverão ter seu funcionamento interrompido quando solicitado pelo Técnico de Campo que realizará o ensaio, obedecendo a um mínimo de 15 minutos antes do início do ensaio. \n"
-            + "d) O ensaio será cobrado independente do resultado. \n"
-            + "e) Os compartimentos dos tanques que serão ensaiados não poderão ser abastecidos nas 2 horas que antecedem ao início da realização do ensaio e durante a realização do mesmo.\n"
-            + "f) Orçamento promocional válido para 07 dias após o envio, podendo sofrer alteração após o vencimento.";
+                                       + "b) As bocas de descarga e de visita de todos os compartimentos dos tanques que serão ensaiados deverão estar secas.       \n"
+                                       + "c) As bombas de abastecimento veicular, interligadas aos compartimentos dos tanques e cujas tubulações serão ensaiadas, deverão ter seu funcionamento interrompido quando solicitado pelo Técnico de Campo que realizará o ensaio, obedecendo a um mínimo de 15 minutos antes do início do ensaio. \n"
+                                       + "d) O ensaio será cobrado independente do resultado. \n"
+                                       + "e) Os compartimentos dos tanques que serão ensaiados não poderão ser abastecidos nas 2 horas que antecedem ao início da realização do ensaio e durante a realização do mesmo.\n"
+                                       + "f) Orçamento promocional válido para 07 dias após o envio, podendo sofrer alteração após o vencimento.";
 
     public Orcamento() {
         initComponents();
@@ -169,6 +169,7 @@ public class Orcamento extends javax.swing.JFrame {
         btnCancelarOrcamento = new javax.swing.JButton();
         btnAbandonar = new javax.swing.JButton();
         btnAprovarOrcamento = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orçamento");
@@ -863,7 +864,6 @@ public class Orcamento extends javax.swing.JFrame {
 
         txtParcelaNumero.setEnabled(false);
 
-        txtObservacoes.setText("a) Os compartimentos dos tanques que serão ensaiados deverão conter no máximo 96 cm de combustível para que o ENSAIO NÃO VOLUMÉTRICO seja realizado.\nb) As bocas de descarga e de visita de todos os compartimentos dos tanques que serão ensaiados deverão estar secas.       \nc) As bombas de abastecimento veicular, interligadas aos compartimentos dos tanques e cujas tubulações serão ensaiadas, deverão ter seu funcionamento interrompido quando solicitado pelo Técnico de Campo que realizará o ensaio, obedecendo a um mínimo de 15 minutos antes do início do ensaio. \nd) O ensaio será cobrado independente do resultado. \ne) Os compartimentos dos tanques que serão ensaiados não poderão ser abastecidos nas 2 horas que antecedem ao início da realização do ensaio e durante a realização do mesmo.\nf) Orçamento promocional válido para 07 dias após o envio, podendo sofrer alteração após o vencimento.");
         jScrollPane3.setViewportView(txtObservacoes);
 
         txtPercentualDescontoServicos.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1079,6 +1079,13 @@ public class Orcamento extends javax.swing.JFrame {
             }
         });
 
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -1093,6 +1100,8 @@ public class Orcamento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelarOrcamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnImprimir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1108,7 +1117,8 @@ public class Orcamento extends javax.swing.JFrame {
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarOrcamento)
                     .addComponent(btnAbandonar)
-                    .addComponent(btnAprovarOrcamento))
+                    .addComponent(btnAprovarOrcamento)
+                    .addComponent(btnImprimir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1348,7 +1358,7 @@ public class Orcamento extends javax.swing.JFrame {
                 }
             }
             
-            orcamento.setDataValidade(funcoes.DataFormatoLocalDate(txtDataValidadeOrcamento.getText()));
+            orcamento.setDataValidade(funcoes.StringParaLocalDate(txtDataValidadeOrcamento.getText()));
             orcamento.setVersaoOrcamento(txtVersaoOrcamento.getText());
             orcamento.setClienteCodigo(Integer.parseInt(txtClienteCodigo.getText()));
 
@@ -1383,15 +1393,16 @@ public class Orcamento extends javax.swing.JFrame {
                 Logger.getLogger(Orcamento.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (txtObservacoes.getText().isEmpty()) {
-                orcamento.setObservacoes("");
-            } else {
-                if (incluindo == 1) {
-                    orcamento.setObservacoes(txtObservacoes.getText().trim() + textoFixoObservacoes);
-                } else {
-                    orcamento.setObservacoes(txtObservacoes.getText());
-                }
-            }
+            orcamento.setObservacoes(txtObservacoes.getText().trim());
+//            if (txtObservacoes.getText().isEmpty()) {
+//                orcamento.setObservacoes("");
+//            } else {
+//                if (incluindo == 1) {
+//                    orcamento.setObservacoes(txtObservacoes.getText().trim());
+//                } else {
+//                    orcamento.setObservacoes(txtObservacoes.getText());
+//                }
+//            }
 
             orcamento.setSituacao("ABERTO");
         }
@@ -1517,11 +1528,16 @@ public class Orcamento extends javax.swing.JFrame {
             BigDecimal valorUnitarioServico = new BigDecimal(txtValorUnitarioServico.getText().replace("R$", "").replace(" ", "").replace(".", "").replace(",", "."));
             BigDecimal valorTotalServico = valorUnitarioServico.multiply(new BigDecimal(quantidadeCompartimentos));
 
+            if (txtDescricaoServico.getText().contains("ESTANQUEIDADE")){
+                txtObservacoes.setText(textoFixoObservacoes);
+            }
+                                
             for (int x = 0; x < tblServicos.getRowCount(); x++) {
                 if (tblServicos.getValueAt(x, 0).equals(txtDescricaoServico.getText().trim())) {
                     lAlterandoServico = true;
                 }
             }
+            
             if (lAlterandoServico == false) {
                 DefaultTableModel valores = (DefaultTableModel) tblServicos.getModel();
                 valores.addRow(new Object[]{servicoDescricao, quantidadeCompartimentos, valorUnitarioServico, valorTotalServico, servicoCodigo});
@@ -1638,7 +1654,7 @@ public class Orcamento extends javax.swing.JFrame {
                                                     + "JOIN PESSOAS ON (PESSOAS.CODIGO = ORCAMENTOS.CLIENTECODIGO) "
                                                     + "JOIN FORMASPAGAMENTO ON (FORMASPAGAMENTO.CODIGO = ORCAMENTOS.FORMAPAGAMENTO) "
                                                     + condicao
-                                                    + "ORDER BY ORCAMENTOS.NUMERO, PESSOAS.RAZAOSOCIAL");
+                                                    + "ORDER BY ORCAMENTOS.NUMERO DESC, PESSOAS.RAZAOSOCIAL");
         } else {
             pesquisaOrcamentos = new PesquisaOrcamentos();
             pesquisaOrcamentos.setLocationRelativeTo(null);
@@ -1650,7 +1666,7 @@ public class Orcamento extends javax.swing.JFrame {
                                                     + "      FORMASPAGAMENTO.DESCRICAO AS FORMAPAGAMENTO, * " + "FROM ORCAMENTOS "
                                                     + "JOIN PESSOAS ON (PESSOAS.CODIGO = ORCAMENTOS.CLIENTECODIGO)"
                                                     + "JOIN FORMASPAGAMENTO ON (FORMASPAGAMENTO.CODIGO = ORCAMENTOS.FORMAPAGAMENTO) "
-                                                    + "ORDER BY ORCAMENTOS.NUMERO, PESSOAS.RAZAOSOCIAL");
+                                                    + "ORDER BY ORCAMENTOS.NUMERO DESC, PESSOAS.RAZAOSOCIAL");
         }
     }//GEN-LAST:event_btnPesquisaOrcamentoActionPerformed
 
@@ -1692,28 +1708,46 @@ public class Orcamento extends javax.swing.JFrame {
             txtParcelaValor.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Selecione a duplicata para eliminar!");
-        }
+        }   
     }//GEN-LAST:event_btnExcluirParcelaActionPerformed
 
     private void txtParcelaVencimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtParcelaVencimentoFocusLost
         if (!txtParcelaVencimento.getText().isEmpty()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Calendar vencimentoParcela = Calendar.getInstance();
-            Calendar dataAtual = Calendar.getInstance();
-            try {
-                vencimentoParcela.setTime(sdf.parse(txtParcelaVencimento.getText()));
-                dataAtual.setTime(sdf.parse(new Date().toString()));
-            } catch (java.text.ParseException e) {
-                
-            }
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//            Calendar vencimentoParcela = Calendar.getInstance();
+//            Calendar dataAtual = Calendar.getInstance();
+//            try {
+//                vencimentoParcela.setTime(sdf.parse(txtParcelaVencimento.getText()));
+//                dataAtual.setTime(sdf.parse(new Date().toString()));
+//            } catch (java.text.ParseException e) {
+//                
+//            }
+//            
+//            int condicao = vencimentoParcela.get(Calendar.DAY_OF_YEAR) - dataAtual.get(Calendar.DAY_OF_YEAR);
+//            txtParcelaPrazo.setText(String.valueOf(String.format("%02d", condicao)));
 
-            int condicao = vencimentoParcela.get(Calendar.DAY_OF_YEAR) - dataAtual.get(Calendar.DAY_OF_YEAR);
-            txtParcelaPrazo.setText(String.valueOf(String.format("%02d", condicao)));
+//            String dateStart = txtParcelaVencimento.getText();
+//            String dateStop = "02/2/2001 06:31"; 
+           
+        
+            Date dataAtual = new Date();
+            String dataVencimento = txtParcelaVencimento.getText();
+            
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try { 
+                String atual = format.format(dataAtual); 
+                DateTime atualFormatado = new DateTime(format.parse(atual));                 
+                DateTime vencimentoFormatado = new DateTime(format.parse(dataVencimento)); 
+                
+                txtParcelaPrazo.setText(String.valueOf(String.format("%03d", Days.daysBetween(atualFormatado, vencimentoFormatado).getDays())));
+
+            } catch (ParseException ex) {
+                Logger.getLogger(Orcamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             int numeroParcelas = Integer.parseInt(txtNumeroParcelas.getText());
             BigDecimal valorTotal = new BigDecimal(txtValorTotalOrcamento.getText().replace(" ", "").replace(".", "").replace(",", "."));
             BigDecimal valorParcela = valorTotal.divide(new BigDecimal(numeroParcelas), MathContext.DECIMAL64); 
-            
 
             if (lAlterandoNumeroParcelas) {
                 txtParcelaValor.setText("0.00");
@@ -2188,6 +2222,10 @@ public class Orcamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtValorTotalServicosFechamentoFocusGained
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        imprimirOrcamento();
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     private void popularComboFormasPagamento() {
         conecta.conexao();
         conecta.executaSql("SELECT CODIGO, DESCRICAO FROM FORMASPAGAMENTO ORDER BY DESCRICAO");
@@ -2243,8 +2281,7 @@ public class Orcamento extends javax.swing.JFrame {
         txtParcelaVencimento.setText(""); 
         txtParcelaValor.setText(""); 
         ((DefaultTableModel) tblPagamentos.getModel()).setRowCount(0);
-        txtObservacoes.setText(textoFixoObservacoes);
-        
+        txtObservacoes.setText(""); 
         btnGravar.setEnabled(true);
         btnAprovarOrcamento.setEnabled(true);
         btnCancelarOrcamento.setEnabled(true); 
@@ -2279,6 +2316,7 @@ public class Orcamento extends javax.swing.JFrame {
     public javax.swing.JButton btnCancelarOrcamento;
     private javax.swing.JButton btnExcluirParcela;
     public javax.swing.JButton btnGravar;
+    private javax.swing.JButton btnImprimir;
     public javax.swing.JButton btnIncluirPeca;
     public javax.swing.JButton btnIncluirServico;
     public javax.swing.JButton btnPesquisaCliente;
