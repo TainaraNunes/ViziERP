@@ -20,16 +20,17 @@ public class DaoHistoricos {
     public void gravarHistorico(BeansHistoricos historico) {
         conecta.conexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO HISTORICOS(HISTORICOCODIGO, HISTORICODESCRICAO, TIPOLANCAMENTO, MOVIMENTADUPLICATAS, MOVIMENTASALDOBANCARIO, BANCOCODIGO, BANCODESCRICAO, CONTACORRENTE, ATIVO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO HISTORICOS(HISTORICOCODIGO, HISTORICODESCRICAO, TIPOLANCAMENTO, MOVIMENTADUPLICATAS, MOVIMENTACHEQUE, MOVIMENTASALDOBANCARIO, BANCOCODIGO, BANCODESCRICAO, CONTACORRENTE, ATIVO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             pst.setString(1, historico.getHistoricoCodigo());
             pst.setString(2, historico.getHistoricoDescricao().trim());
             pst.setString(3, historico.getTipoLancamento());
             pst.setInt(4, historico.getMovimentaDuplicatas());
-            pst.setInt(5, historico.getMovimentaSaldoBancario());
-            pst.setString(6, historico.getBancoCodigo());
-            pst.setString(7, historico.getBancoDescricao().trim());
-            pst.setString(8, historico.getContaCorrente().trim());
-            pst.setInt(9, historico.getAtivo());
+            pst.setInt(5, historico.getMovimentaCheque());
+            pst.setInt(6, historico.getMovimentaSaldoBancario());
+            pst.setString(7, historico.getBancoCodigo());
+            pst.setString(8, historico.getBancoDescricao().trim());
+            pst.setString(9, historico.getContaCorrente().trim());
+            pst.setInt(10, historico.getAtivo());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Histórico gravado com sucesso!");
@@ -42,16 +43,27 @@ public class DaoHistoricos {
     public void alterarHistorico(BeansHistoricos historico) {
         conecta.conexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICOS SET HISTORICODESCRICAO = ?, TIPOLANCAMENTO = ?, MOVIMENTADUPLICATAS = ?, MOVIMENTASALDOBANCARIO = ?, BANCOCODIGO = ?, BANCODESCRICAO = ?, CONTACORRENTE = ?, ATIVO = ? WHERE HISTORICOCODIGO = ?");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICOS SET HISTORICODESCRICAO = ?, "
+                                                               + "                      TIPOLANCAMENTO = ?, "
+                                                               + "                      MOVIMENTADUPLICATAS = ?, "
+                                                               + "                      MOVIMENTACHEQUE = ?, "
+                                                               + "                      MOVIMENTASALDOBANCARIO = ?, "
+                                                               + "                      BANCOCODIGO = ?, "
+                                                               + "                      BANCODESCRICAO = ?, "
+                                                               + "                      CONTACORRENTE = ?, "
+                                                               + "                      ATIVO = ? "
+                                                               + "WHERE HISTORICOCODIGO = ?");
+            
             pst.setString(1, historico.getHistoricoDescricao().trim());
             pst.setString(2, historico.getTipoLancamento());
             pst.setInt(3, historico.getMovimentaDuplicatas());
-            pst.setInt(4, historico.getMovimentaSaldoBancario());
-            pst.setString(5, historico.getBancoCodigo());
-            pst.setString(6, historico.getBancoDescricao().trim());
-            pst.setString(7, historico.getContaCorrente().trim());
-            pst.setInt(8, historico.getAtivo());
-            pst.setString(9, historico.getHistoricoCodigo());
+            pst.setInt(4, historico.getMovimentaCheque());
+            pst.setInt(5, historico.getMovimentaSaldoBancario());
+            pst.setString(6, historico.getBancoCodigo());
+            pst.setString(7, historico.getBancoDescricao().trim());
+            pst.setString(8, historico.getContaCorrente().trim());
+            pst.setInt(9, historico.getAtivo());
+            pst.setString(10, historico.getHistoricoCodigo());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");

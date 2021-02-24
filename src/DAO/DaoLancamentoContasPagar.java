@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import Beans.BeansContasPagar;
 import Conection.ConectaBD;
 import ERP.view.LancamentoContasPagar;
+import java.math.BigInteger;
 
 public class DaoLancamentoContasPagar {
 
@@ -91,17 +92,16 @@ public class DaoLancamentoContasPagar {
 
         try {
             if (contasPagar.alterando == 1) {
-                /********************************************************************************
-                 * Deleta somente o que não teve pagamentos para inserir o registro atualizado. *
-                 * *****************************************************************************/
-                 
+                /* Deleta somente o que não teve recebimentos para inserir o registro atualizado. */
                 PreparedStatement pst2 = conecta.con.prepareStatement("DELETE FROM CONTASPAGAR WHERE PLANILHA = ?");
                 pst2.setInt(1, beansContasPagar.getPlanilha());
                 pst2.execute();
             }
 
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO CONTASPAGAR (PLANILHA, OPERACAO, DATALANCAMENTO, DOCUMENTONUMERO, VALORTOTALFATURA, FORMAPAGAMENTO, CATEGORIA, FORNECEDORCODIGO, PARCELANUMERO, DATAVENCIMENTO, VALORDUPLICATA, ACRESCIMOS, DESCONTOS, TOTALPAGAR, DATAPAGAMENTO, USUARIO) "
-                                                               + "                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO CONTASPAGAR (PLANILHA, OPERACAO, DATALANCAMENTO, DOCUMENTONUMERO, VALORTOTALFATURA, FORMAPAGAMENTO, "
+                                                               + "                         CATEGORIA, FORNECEDORCODIGO, PARCELANUMERO, DATAVENCIMENTO, VALORDUPLICATA, ACRESCIMOS, "
+                                                               + "                         DESCONTOS, TOTALPAGAR, VALORPAGO, DATAPAGAMENTO, SITUACAO, USUARIO, OBSERVACOES) "
+                                                               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             if (contasPagar.incluindo == 1) {
                 pst.setInt(1, gerarPlanilhaContasPagar());
@@ -112,11 +112,8 @@ public class DaoLancamentoContasPagar {
             }
 
             for (int x = 0; x < contasPagar.tblParcelas.getRowCount(); x++) {
-                /****************************************************************
-                 * O sistema vai passar por todos os registros da tabela para
-                 * inserir os valores. * Quando encontrar um registro, significa
-                 * que teve recebimento e pula para a próxima linha. 
-                 ****************************************************************/                 
+                /* O sistema vai passar por todos os registros da tabela para inserir os valores. 
+                 * Quando encontrar um registro, significa que teve recebimento e pula para a próxima linha. */                
                 conecta.conexao();
                 conecta.executaSql("SELECT * FROM CONTASPAGAR WHERE PLANILHA = '" + imprimirPlanilha + "' AND DOCUMENTONUMERO = '" + beansContasPagar.getDocumentoNumero() + "' AND PARCELANUMERO = '" + contasPagar.tblParcelas.getValueAt(x, 0) + "'");
 
@@ -156,13 +153,18 @@ public class DaoLancamentoContasPagar {
                 BigDecimal valorDescontos = new BigDecimal(descontos);
                 pst.setBigDecimal(13, valorDescontos);
                 
-                String totalReceber = (String) contasPagar.tblParcelas.getValueAt(x, 5);
-                BigDecimal valorTotalReceber = new BigDecimal(totalReceber);
+                String totalPagar = (String) contasPagar.tblParcelas.getValueAt(x, 5);
+                BigDecimal valorTotalReceber = new BigDecimal(totalPagar);
                 pst.setBigDecimal(14, valorTotalReceber);
+                
+                BigDecimal valorPago = new BigDecimal(BigInteger.ZERO); 
+                pst.setBigDecimal(15, valorPago);                
 
-                pst.setNull(15, 0);
-                pst.setString(16, System.getProperty("usuario"));
-
+                pst.setNull(16, 0);
+                pst.setString(17, beansContasPagar.getSituacao());
+                pst.setString(18, System.getProperty("usuario"));
+                pst.setString(19, beansContasPagar.getObservacoes());
+                
                 pst.execute();
             }
 
@@ -188,11 +190,8 @@ public class DaoLancamentoContasPagar {
         conecta.conexao();
         try {
             for (int x = 0; x < contasPagar.tblParcelas.getRowCount(); x++) {
-                /** ************************************************************
-                 * Passa por todos os registros da tabela e verifica se alguma
-                 * parcela já foi recebida * caso não (possuiRecebimento == 0),
-                 * elimina o registro da duplicata se não volta para a tela. *
-                 * *************************************************************/
+                /* Passa por todos os registros da tabela e verifica se alguma parcela já foi paga.
+                 * Caso não, elimina o registro da duplicata se não volta para a tela. */ 
                 conecta.executaSql("SELECT * FROM CONTASPAGAR WHERE PLANILHA = '" + planilha + "' AND DOCUMENTONUMERO = '" + documentoNumero + "' AND PARCELANUMERO = '" + contasPagar.tblParcelas.getValueAt(x, 0) + "'");
 
                 if (conecta.rs.next()) {
@@ -223,10 +222,8 @@ public class DaoLancamentoContasPagar {
         }
     }
 
-    /***************************************************************************
-     * Valida se o valor total da fatura é igual a soma do valor das parcelas. *
-     * Não consiedrando os acréscimos ou descontos.                            *
-     * ************************************************************************/
+   /* Valida se o valor total da fatura é igual a soma do valor das parcelas. 
+    * Não considerando os acréscimos ou descontos. */
     public boolean validarTotais(LancamentoContasPagar contasPagar) {
         boolean resultado;
         BigDecimal totalDuplicatas = BigDecimal.ZERO;

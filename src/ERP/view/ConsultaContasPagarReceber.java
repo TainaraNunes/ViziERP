@@ -35,7 +35,7 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
 
     public ConsultaContasPagarReceber() {
         initComponents();
-        txtClienteFornecedor.setDocument(new Teclas());
+        txtPessoaDescricao.setDocument(new Teclas());
         
         popularComboFormasPagamento();
         popularComboCategoria();
@@ -49,11 +49,9 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtDtVencimentoInicial = new javax.swing.JFormattedTextField();
         txtDtVencimentoFinal = new javax.swing.JFormattedTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtDtLancamentoInicial = new javax.swing.JFormattedTextField();
         txtDtLancamentoFinal = new javax.swing.JFormattedTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox();
@@ -63,13 +61,14 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        txtClienteFornecedor = new javax.swing.JTextField();
+        txtPessoaDescricao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtDocumentoNumero = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         chbPendentes = new javax.swing.JCheckBox();
         chbLiquidadas = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
+        txtPessoaCodigo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsultaFinanceiro = new javax.swing.JTable();
         txtTotalPagar = new javax.swing.JTextField();
@@ -101,8 +100,6 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         }
         txtDtVencimentoFinal.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
 
-        jLabel2.setText("a");
-
         jLabel3.setText("Data de Lançamento:");
 
         try {
@@ -118,8 +115,6 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtDtLancamentoFinal.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
-
-        jLabel4.setText("a");
 
         jLabel5.setText("Categoria:");
 
@@ -183,22 +178,22 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                             .addComponent(txtDtVencimentoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
+                            .addComponent(txtDtVencimentoFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(txtDtLancamentoFinal))
+                        .addGap(81, 81, 81)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtPessoaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDtLancamentoFinal)
-                            .addComponent(txtDtVencimentoFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)))
-                    .addComponent(txtClienteFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(txtPessoaDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDocumentoNumero)
-                    .addComponent(cmbFormaPagamento, 0, 181, Short.MAX_VALUE)
+                    .addComponent(cmbFormaPagamento, 0, 179, Short.MAX_VALUE)
                     .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,19 +238,18 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(txtDtVencimentoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
                             .addComponent(txtDtVencimentoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(txtDtLancamentoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
                             .addComponent(txtDtLancamentoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtClienteFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)))
+                            .addComponent(txtPessoaDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtPessoaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
@@ -277,34 +271,34 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
 
         tblConsultaFinanceiro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Cliente/Fornecedor", "Documento", "Parcela", "Vencimento", "Pagamento", "Forma de Pagamento", "Valor Documento", "Acréscimos", "Descontos", "Valor Total"
+                "Cliente/Fornecedor", "Documento", "Parcela", "Vencimento", "Valor Total", "Valor Recebido/Pago", "Data Rcto/Pgto", "Forma de Pagamento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -320,27 +314,21 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblConsultaFinanceiro);
         if (tblConsultaFinanceiro.getColumnModel().getColumnCount() > 0) {
             tblConsultaFinanceiro.getColumnModel().getColumn(0).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblConsultaFinanceiro.getColumnModel().getColumn(0).setPreferredWidth(180);
             tblConsultaFinanceiro.getColumnModel().getColumn(1).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(1).setPreferredWidth(180);
+            tblConsultaFinanceiro.getColumnModel().getColumn(1).setPreferredWidth(75);
             tblConsultaFinanceiro.getColumnModel().getColumn(2).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(2).setPreferredWidth(75);
+            tblConsultaFinanceiro.getColumnModel().getColumn(2).setPreferredWidth(50);
             tblConsultaFinanceiro.getColumnModel().getColumn(3).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tblConsultaFinanceiro.getColumnModel().getColumn(3).setPreferredWidth(80);
             tblConsultaFinanceiro.getColumnModel().getColumn(4).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tblConsultaFinanceiro.getColumnModel().getColumn(4).setPreferredWidth(95);
             tblConsultaFinanceiro.getColumnModel().getColumn(5).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(5).setPreferredWidth(80);
+            tblConsultaFinanceiro.getColumnModel().getColumn(5).setPreferredWidth(95);
             tblConsultaFinanceiro.getColumnModel().getColumn(6).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(6).setPreferredWidth(130);
+            tblConsultaFinanceiro.getColumnModel().getColumn(6).setPreferredWidth(80);
             tblConsultaFinanceiro.getColumnModel().getColumn(7).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(7).setPreferredWidth(95);
-            tblConsultaFinanceiro.getColumnModel().getColumn(8).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(8).setPreferredWidth(95);
-            tblConsultaFinanceiro.getColumnModel().getColumn(9).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(9).setPreferredWidth(90);
-            tblConsultaFinanceiro.getColumnModel().getColumn(10).setResizable(false);
-            tblConsultaFinanceiro.getColumnModel().getColumn(10).setPreferredWidth(92);
+            tblConsultaFinanceiro.getColumnModel().getColumn(7).setPreferredWidth(130);
         }
 
         jLabel11.setText("Total a Receber:");
@@ -394,7 +382,7 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         pesquisaLancamentoContasReceber = pesquisaContasReceber;
         pesquisaLancamentoContasPagar = pesquisaContasPagar;
 
-        String filtroDataVencimento, filtroDataLancamento, filtroClienteDescricao, filtroFornecedorDescricao;
+        String filtroDataVencimento, filtroDataLancamento, filtroClienteCodigo, filtroFornecedorCodigo;
         String filtroFormaPagamento = null, filtroCategoria, filtroNumeroDocumento, filtroPendentesReceber, filtroPendentesPagar;
         String filtroLiquidadasReceber, filtroLiquidadasPagar, sql, sql1, sql2, sql3, sql4;
 
@@ -443,16 +431,16 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                 }
             }
             
-            if (txtClienteFornecedor.getText().isEmpty()) {
-                filtroClienteDescricao = "TRUE";
+            if (txtPessoaCodigo.getText().isEmpty()) {
+                filtroClienteCodigo = "TRUE";
             } else {
-                filtroClienteDescricao = "PESSOAS.RAZAOSOCIAL LIKE '%" + txtClienteFornecedor.getText().trim() + "%'";
+                filtroClienteCodigo = "PESSOAS.CODIGO = " + txtPessoaCodigo.getText().trim() + " ";
             }
 
-            if (txtClienteFornecedor.getText().isEmpty()) {
-                filtroFornecedorDescricao = "TRUE";
+            if (txtPessoaCodigo.getText().isEmpty()) {
+                filtroFornecedorCodigo = "TRUE";
             } else {
-                filtroFornecedorDescricao = "PESSOAS.RAZAOSOCIAL LIKE '%" + txtClienteFornecedor.getText().trim() + "%'";
+                filtroFornecedorCodigo = "PESSOAS.CODIGO =  "+ txtPessoaCodigo.getText().trim() + " ";
             }
 
             if (txtDocumentoNumero.getText().isEmpty()) {
@@ -462,22 +450,29 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
             }
 
             if (chbLiquidadas.isSelected()) {
-                filtroLiquidadasReceber = "DATARECEBIMENTO IS NOT NULL";
-                filtroLiquidadasPagar = "DATAPAGAMENTO IS NOT NULL";
+                filtroLiquidadasReceber = "SITUACAO = 'L' AND DATARECEBIMENTO IS NOT NULL";
+                filtroLiquidadasPagar = "SITUACAO = 'L' AND DATAPAGAMENTO IS NOT NULL";
             } else {
                 filtroLiquidadasReceber = "TRUE";
                 filtroLiquidadasPagar = "TRUE";
             }
 
             if (chbPendentes.isSelected()) {
-                filtroPendentesReceber = "DATARECEBIMENTO IS NULL";
-                filtroPendentesPagar = "DATAPAGAMENTO IS NULL";
+                filtroPendentesReceber = "SITUACAO IN('P', 'PR') AND DATARECEBIMENTO IS NULL";
+                filtroPendentesPagar = "SITUACAO IN('P', 'PR') AND DATAPAGAMENTO IS NULL";
             } else {
                 filtroPendentesReceber = "TRUE";
                 filtroPendentesPagar = "TRUE";
             }
+            
+            if (chbPendentes.isSelected() && chbLiquidadas.isSelected()){
+                filtroPendentesReceber = "TRUE";
+                filtroPendentesPagar = "TRUE";
+                filtroLiquidadasReceber = "TRUE";
+                filtroLiquidadasPagar = "TRUE";
+            }
 
-            if (filtroDataVencimento.equals("TRUE") && filtroDataLancamento.equals("TRUE") && filtroClienteDescricao.equals("TRUE") && filtroCategoria.equals("TRUE") && filtroFormaPagamento.equals("TRUE") && filtroNumeroDocumento.equals("TRUE") && filtroLiquidadasReceber.equals("TRUE") && filtroPendentesReceber.equals("TRUE")) {
+            if (filtroDataVencimento.equals("TRUE") && filtroDataLancamento.equals("TRUE") && filtroClienteCodigo.equals("TRUE") && filtroCategoria.equals("TRUE") && filtroFormaPagamento.equals("TRUE") && filtroNumeroDocumento.equals("TRUE") && filtroLiquidadasReceber.equals("TRUE") && filtroPendentesReceber.equals("TRUE")) {
                 sql1 = "SELECT PESSOAS.CODIGO AS CODIGO, "
                      + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
                      + "       DOCUMENTONUMERO AS DOCUMENTO, "
@@ -489,7 +484,9 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                      + "       ACRESCIMOS, "
                      + "       DESCONTOS, "
                      + "       TOTALRECEBER AS TOTALRECEBERPAGAR, "
-                     + "       OPERACAO "
+                     + "       VALORRECEBIDO AS VALORRECEBIDOPAGO, "
+                     + "       OPERACAO, "
+                     + "       OBSERVACOES "                        
                      + "FROM CONTASRECEBER "
                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASRECEBER.CLIENTECODIGO) "
                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASRECEBER.FORMAPAGAMENTO) " ;
@@ -505,13 +502,15 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                      + "       ACRESCIMOS, "
                      + "       DESCONTOS, "
                      + "       TOTALRECEBER AS TOTALRECEBERPAGAR, "
-                     + "       OPERACAO "
+                     + "       VALORRECEBIDO AS VALORRECEBIDOPAGO, "                        
+                     + "       OPERACAO, "
+                     + "       OBSERVACOES "                        
                      + "FROM CONTASRECEBER "
                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASRECEBER.CLIENTECODIGO) "  
                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASRECEBER.FORMAPAGAMENTO) " 
                      + "WHERE " + filtroDataVencimento + " AND "
                                 + filtroDataLancamento + " AND " 
-                                + filtroClienteDescricao + " AND " 
+                                + filtroClienteCodigo + " AND " 
                                 + filtroCategoria + " AND " 
                                 + filtroFormaPagamento + " AND " 
                                 + filtroNumeroDocumento + " AND " 
@@ -519,7 +518,7 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                                 + filtroPendentesReceber;
             }
             
-            if (filtroDataVencimento.equals("TRUE") && filtroDataLancamento.equals("TRUE") && filtroFornecedorDescricao.equals("TRUE") && filtroCategoria.equals("TRUE") && filtroFormaPagamento.equals("TRUE") && filtroNumeroDocumento.equals("TRUE") && filtroLiquidadasPagar.equals("TRUE") && filtroPendentesPagar.equals("TRUE")) {
+            if (filtroDataVencimento.equals("TRUE") && filtroDataLancamento.equals("TRUE") && filtroFornecedorCodigo.equals("TRUE") && filtroCategoria.equals("TRUE") && filtroFormaPagamento.equals("TRUE") && filtroNumeroDocumento.equals("TRUE") && filtroLiquidadasPagar.equals("TRUE") && filtroPendentesPagar.equals("TRUE")) {
                 sql3 = "SELECT PESSOAS.CODIGO AS CODIGO, "
                      + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
                      + "       DOCUMENTONUMERO AS DOCUMENTO, "
@@ -531,7 +530,9 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                      + "       ACRESCIMOS, "
                      + "       DESCONTOS, "
                      + "       TOTALPAGAR AS TOTALRECEBERPAGAR, "
-                     + "       OPERACAO "
+                     + "       VALORPAGO AS VALORRECEBIDOPAGO, "                        
+                     + "       OPERACAO, "
+                     + "       OBSERVACOES "                                                
                      + "FROM CONTASPAGAR "
                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASPAGAR.FORNECEDORCODIGO) "
                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASPAGAR.FORMAPAGAMENTO) " ;
@@ -547,13 +548,15 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                      + "       ACRESCIMOS, "
                      + "       DESCONTOS, "
                      + "       TOTALPAGAR AS TOTALRECEBERPAGAR, "
-                     + "       OPERACAO "
+                     + "       VALORPAGO AS VALORRECEBIDOPAGO, "                        
+                     + "       OPERACAO, "
+                     + "       OBSERVACOES "                                                
                      + "FROM CONTASPAGAR "
                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASPAGAR.FORNECEDORCODIGO) "
                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASPAGAR.FORMAPAGAMENTO) "
                      + "WHERE " + filtroDataVencimento + " AND " 
                                 + filtroDataLancamento + " AND " 
-                                + filtroFornecedorDescricao + " AND " 
+                                + filtroFornecedorCodigo + " AND " 
                                 + filtroCategoria + " AND " 
                                 + filtroFormaPagamento + " AND " 
                                 + filtroNumeroDocumento + " AND " 
@@ -575,22 +578,29 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
 
         //Chamada pelo lançamento de contas a receber;
         } else if (pesquisaContasReceber != null) {
-            txtClienteFornecedor.setText(pesquisaContasReceber.txtClienteDescricao.getText().trim());
-            if (txtClienteFornecedor.getText().isEmpty()) {
-                filtroClienteDescricao = "TRUE";
-                txtClienteFornecedor.setEnabled(false);
+            //Filtra pelo código do cliente:
+            txtPessoaCodigo.setText(pesquisaContasReceber.txtClienteCodigo.getText().trim());
+            txtPessoaDescricao.setText(pesquisaContasReceber.txtClienteDescricao.getText().trim());
+    
+            if (txtPessoaCodigo.getText().isEmpty()) {
+                filtroClienteCodigo = "TRUE";
             } else {
-                filtroClienteDescricao = "PESSOAS.RAZAOSOCIAL LIKE '%" + txtClienteFornecedor.getText().trim() + "%'";
+                filtroClienteCodigo = "PESSOAS.CODIGO = " + txtPessoaCodigo.getText().trim() + " ";
             }
 
+            //Filtra pelo número do documento:
             txtDocumentoNumero.setText(pesquisaContasReceber.txtDocumentoNumero.getText());
             if (txtDocumentoNumero.getText().isEmpty()) {
                 filtroNumeroDocumento = "TRUE";
-                txtDocumentoNumero.setEnabled(false);
             } else {
                 filtroNumeroDocumento = "DOCUMENTONUMERO = '" + txtDocumentoNumero.getText() + "'";
             }
-
+            
+            chbContasReceber.setSelected(true);
+            chbPendentes.setSelected(true); 
+            
+            desabilitarCampos();
+            
             preencherTabelaConsulta("SELECT PESSOAS.CODIGO AS CODIGO, "
                                   + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
                                   + "       DOCUMENTONUMERO AS DOCUMENTO, "
@@ -601,38 +611,47 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                                   + "       VALORDUPLICATA AS VALORDPL, "
                                   + "       ACRESCIMOS, "
                                   + "       DESCONTOS, "
+                                  + "       VALORTOTALFATURA AS TOTALFATURA, "                    
                                   + "       TOTALRECEBER AS TOTALRECEBERPAGAR, "
-                                  + "       VALORTOTALFATURA AS TOTALFATURA, "
+                                  + "       VALORRECEBIDO AS VALORRECEBIDOPAGO, "                                        
                                   + "       CATEGORIA, "
                                   + "       PLANILHA, "
                                   + "       DATALANCAMENTO, "
-                                  + "       OPERACAO "
+                                  + "       OPERACAO, "
+                                  + "       OBSERVACOES "                                            
                                   + "FROM CONTASRECEBER "
                                   + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASRECEBER.CLIENTECODIGO) "
                                   + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASRECEBER.FORMAPAGAMENTO) " 
-                                  + "WHERE " + filtroClienteDescricao + " AND " 
+                                  + "WHERE " + filtroClienteCodigo   + " AND " 
                                              + filtroNumeroDocumento + " AND "
-                                  + "          DATARECEBIMENTO IS NULL "
+                                  + "        SITUACAO IN('P', 'PR') "
                                   + "ORDER BY PESSOA, DOCUMENTONUMERO, PARCELANUMERO");
 
         //Chamada pelo lançamento de contas a pagar;
         } else if (pesquisaContasPagar != null) {
-            txtClienteFornecedor.setText(pesquisaContasPagar.txtFornecedorDescricao.getText());
-            if (txtClienteFornecedor.getText().isEmpty()) {
-                filtroFornecedorDescricao = "TRUE";
-                txtClienteFornecedor.setEnabled(false);
+            txtPessoaCodigo.setText(pesquisaContasPagar.txtFornecedorCodigo.getText());
+            txtPessoaDescricao.setText(pesquisaContasPagar.txtFornecedorDescricao.getText());
+            
+            //Filtra pelo código do fornecedor:
+            if (txtPessoaCodigo.getText().isEmpty()) {
+                filtroFornecedorCodigo = "TRUE";
             } else {
-                filtroFornecedorDescricao = "PESSOAS.RAZAOSOCIAL LIKE '%" + txtClienteFornecedor.getText() + "%'";
+                filtroFornecedorCodigo = "PESSOAS.CODIGO = " + txtPessoaCodigo.getText() + " ";
             }
-
+            
+            //Filtra pelo número do documento:
             txtDocumentoNumero.setText(pesquisaContasPagar.txtDocumentoNumero.getText());
             if (txtDocumentoNumero.getText().isEmpty()) {
                 filtroNumeroDocumento = "TRUE";
-                txtDocumentoNumero.setEnabled(false);
             } else {
                 filtroNumeroDocumento = "DOCUMENTONUMERO = '" + txtDocumentoNumero.getText() + "'";
             }
 
+            chbContasPagar.setSelected(true);
+            chbPendentes.setSelected(true);
+            
+            desabilitarCampos();
+            
             preencherTabelaConsulta("SELECT PESSOAS.CODIGO AS CODIGO, "
                                   + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
                                   + "       DOCUMENTONUMERO AS DOCUMENTO, "
@@ -643,119 +662,196 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                                   + "       VALORDUPLICATA AS VALORDPL, "
                                   + "       ACRESCIMOS, "
                                   + "       DESCONTOS, "
-                                  + "       TOTALPAGAR AS TOTALRECEBERPAGAR, "
                                   + "       VALORTOTALFATURA AS TOTALFATURA, "
+                                  + "       TOTALPAGAR AS TOTALRECEBERPAGAR, "
+                                  + "       VALORPAGO AS VALORRECEBIDOPAGO, "
                                   + "       CATEGORIA, "
                                   + "       PLANILHA, "
                                   + "       DATALANCAMENTO, "
-                                  + "       OPERACAO "
+                                  + "       OPERACAO, "
+                                  + "       OBSERVACOES "                                            
                                   + "FROM CONTASPAGAR "
                                   + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASPAGAR.FORNECEDORCODIGO) "
                                   + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASPAGAR.FORMAPAGAMENTO) " 
-                                  + "WHERE " + filtroFornecedorDescricao + " AND " 
-                                             + filtroNumeroDocumento + " AND "
-                                  + "          DATAPAGAMENTO IS NULL "
+                                  + "WHERE " + filtroFornecedorCodigo + " AND " 
+                                             + filtroNumeroDocumento  + " AND "
+                                  + "        SITUACAO IN('P', 'PP') "
                                   + "ORDER BY PESSOA, DOCUMENTONUMERO, PARCELANUMERO");
 
         //Chamado pelo lançamento de caixa;
         } else if (pesquisaCaixa != null) {
-            txtClienteFornecedor.setText(pesquisaCaixa.txtPessoaDescricao.getText().trim());
-
-            if (txtClienteFornecedor.getText().isEmpty()) {
-                filtroClienteDescricao = "TRUE";
-                filtroFornecedorDescricao = "TRUE";
-                txtClienteFornecedor.setEnabled(false);
+            String filtroHistorico = pesquisaCaixa.txtHistorico.getText().trim();
+            if (filtroHistorico.isEmpty()) {
+                filtroHistorico = "TODOS";
             } else {
-                filtroClienteDescricao = "PESSOAS.RAZAOSOCIAL LIKE '%" + txtClienteFornecedor.getText().trim() + "%'";
-                filtroFornecedorDescricao = "PESSOAS.RAZAOSOCIAL LIKE '%" + txtClienteFornecedor.getText().trim() + "%'";
+                conecta.conexao();
+                conecta.executaSql("SELECT * FROM HISTORICOS WHERE HISTORICODESCRICAO = '" + filtroHistorico + "'");
+                try {
+                    conecta.rs.next();
+                    if (conecta.rs.getString("TIPOLANCAMENTO").equals("E") && conecta.rs.getInt("MOVIMENTADUPLICATAS") == 1) {
+                        filtroHistorico = "RECEBER";
+                    } else if (conecta.rs.getString("TIPOLANCAMENTO").equals("S") && conecta.rs.getInt("MOVIMENTADUPLICATAS") == 1) {
+                        filtroHistorico = "PAGAR";
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConsultaContasPagarReceber.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            txtDocumentoNumero.setText(pesquisaCaixa.txtDocumentoNumero.getText());
+            
+            txtPessoaCodigo.setText(pesquisaCaixa.txtPessoaCodigo.getText().trim()); 
+            txtPessoaDescricao.setText(pesquisaCaixa.txtPessoaDescricao.getText().trim());
+            if (txtPessoaCodigo.getText().isEmpty()) {
+                filtroClienteCodigo = "TRUE";
+                filtroFornecedorCodigo = "TRUE";
+            } else {
+                filtroClienteCodigo = "PESSOAS.CODIGO = " + txtPessoaCodigo.getText().trim() + " ";
+                filtroFornecedorCodigo = "PESSOAS.CODIGO = " + txtPessoaCodigo.getText().trim() + " ";
+            }
+            
+            txtDocumentoNumero.setText(pesquisaCaixa.txtDocumentoNumero.getText());            
             if (txtDocumentoNumero.getText().isEmpty()) {
                 filtroNumeroDocumento = "TRUE";
-                txtDocumentoNumero.setEnabled(false);
             } else {
                 filtroNumeroDocumento = "DOCUMENTONUMERO = '" + txtDocumentoNumero.getText() + "'";
             }
 
-            //Verifica se o histórico é de pagamento ou recebimento
-            String descricaoHistorico = pesquisaCaixa.txtHistorico.getText().trim();
-            conecta.conexao();
-
-            if (descricaoHistorico.isEmpty()) {
-                conecta.executaSql("SELECT * FROM HISTORICOS");
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataVencimentoInicial = null, dataVencimentoFinal = null;
+            if (txtDtVencimentoInicial.getText().trim().length() < 10 && txtDtVencimentoFinal.getText().trim().length() < 10) {
+                filtroDataVencimento = "TRUE";
             } else {
-                conecta.executaSql("SELECT * FROM HISTORICOS WHERE HISTORICODESCRICAO = '" + descricaoHistorico + "'");    
-            }           
+                dataVencimentoInicial = LocalDate.parse(txtDtVencimentoInicial.getText(), formato);
+                dataVencimentoFinal = LocalDate.parse(txtDtVencimentoFinal.getText(), formato);
 
-            try {
-                conecta.rs.next();
-                if (conecta.rs.getString("TIPOLANCAMENTO").equals("E") && conecta.rs.getInt("MOVIMENTADUPLICATAS") == 1) {
-                    preencherTabelaConsulta("SELECT PESSOAS.CODIGO AS CODIGO, "
-                                          + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
-                                          + "       DOCUMENTONUMERO AS DOCUMENTO, "
-                                          + "       PARCELANUMERO AS PARCELA, "
-                                          + "       DATAVENCIMENTO AS VENCIMENTO, "
-                                          + "       DATARECEBIMENTO AS DTRECEBIDOPAGO, "
-                                          + "       FORMASPAGAMENTO.DESCRICAO AS FORMAPAGAMENTO, "
-                                          + "       VALORDUPLICATA AS VALORDPL, "
-                                          + "       ACRESCIMOS, "
-                                          + "       DESCONTOS, "
-                                          + "       TOTALRECEBER AS TOTALRECEBERPAGAR, "
-                                          + "       VALORTOTALFATURA AS TOTALFATURA, "
-                                          + "       CATEGORIA, "
-                                          + "       PLANILHA, "
-                                          + "       DATALANCAMENTO, "
-                                          + "       OPERACAO "
-                                          + "FROM CONTASRECEBER "
-                                          + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASRECEBER.CLIENTECODIGO) "
-                                          + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASRECEBER.FORMAPAGAMENTO) "
-                                          + "WHERE " + filtroClienteDescricao + " AND " 
-                                                     + filtroNumeroDocumento + " AND "
-                                          + "          DATARECEBIMENTO IS NULL "
-                                          + "ORDER BY PESSOA, DOCUMENTONUMERO, PARCELANUMERO");
-                    chbContasReceber.setSelected(true);
-                    chbPendentes.setSelected(true);
-                } else if (conecta.rs.getString("TIPOLANCAMENTO").equals("S") && conecta.rs.getInt("MOVIMENTADUPLICATAS") == 1) {
-                    preencherTabelaConsulta("SELECT PESSOAS.CODIGO AS CODIGO, "
-                                          + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
-                                          + "       DOCUMENTONUMERO AS DOCUMENTO, "
-                                          + "       PARCELANUMERO AS PARCELA, "
-                                          + "       DATAVENCIMENTO AS VENCIMENTO, "
-                                          + "       DATAPAGAMENTO AS DTRECEBIDOPAGO, "
-                                          + "       FORMASPAGAMENTO.DESCRICAO AS FORMAPAGAMENTO, "
-                                          + "       VALORDUPLICATA AS VALORDPL, "
-                                          + "       ACRESCIMOS, "
-                                          + "       DESCONTOS, "
-                                          + "       TOTALPAGAR AS TOTALRECEBERPAGAR, "
-                                          + "       VALORTOTALFATURA AS TOTALFATURA, "
-                                          + "       CATEGORIA, "
-                                          + "       PLANILHA, "
-                                          + "       DATALANCAMENTO, "
-                                          + "       OPERACAO "
-                                          + "FROM CONTASPAGAR "
-                                          + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASPAGAR.FORNECEDORCODIGO) "
-                                          + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASPAGAR.FORMAPAGAMENTO) "
-                                          + "WHERE " + filtroFornecedorDescricao + " AND " 
-                                                     + filtroNumeroDocumento + " AND "
-                                          + "          DATAPAGAMENTO IS NULL "
-                                          + "ORDER BY PESSOA, DOCUMENTONUMERO, PARCELANUMERO");
-                    chbContasPagar.setSelected(true);
-                    chbPendentes.setSelected(true);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ConsultaContasPagarReceber.class.getName()).log(Level.SEVERE, null, ex);
+                filtroDataVencimento = "DATAVENCIMENTO BETWEEN '" + dataVencimentoInicial + "' AND '" + dataVencimentoFinal + "' ";
             }
+                       
+            if (filtroHistorico.equals("RECEBER")) {
+                chbContasReceber.setSelected(true);
+                chbPendentes.setSelected(true);
+            
+                desabilitarCampos();
+                
+                preencherTabelaConsulta("SELECT PESSOAS.CODIGO AS CODIGO, "
+                                      + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
+                                      + "       DOCUMENTONUMERO AS DOCUMENTO, "
+                                      + "       PARCELANUMERO AS PARCELA, "
+                                      + "       DATAVENCIMENTO AS VENCIMENTO, "
+                                      + "       DATARECEBIMENTO AS DTRECEBIDOPAGO, "
+                                      + "       FORMASPAGAMENTO.DESCRICAO AS FORMAPAGAMENTO, "
+                                      + "       VALORDUPLICATA AS VALORDPL, "
+                                      + "       ACRESCIMOS, "
+                                      + "       DESCONTOS, "
+                                      + "       VALORTOTALFATURA AS TOTALFATURA, "                        
+                                      + "       TOTALRECEBER AS TOTALRECEBERPAGAR, "
+                                      + "       VALORRECEBIDO AS VALORRECEBIDOPAGO, "
+                                      + "       CATEGORIA, "
+                                      + "       PLANILHA, "
+                                      + "       DATALANCAMENTO, "
+                                      + "       OPERACAO, "
+                                      + "       OBSERVACOES "                                                
+                                      + "FROM CONTASRECEBER "
+                                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASRECEBER.CLIENTECODIGO) "
+                                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASRECEBER.FORMAPAGAMENTO) "
+                                      + "WHERE " + filtroClienteCodigo + " AND " 
+                                                 + filtroNumeroDocumento + " AND "
+                                                 + filtroDataVencimento + " AND "
+                                      + "        SITUACAO IN('P', 'PR') "
+                                      + "ORDER BY PESSOA, DOCUMENTONUMERO, PARCELANUMERO");
 
-            txtDtLancamentoFinal.setEnabled(false);
-            txtDtLancamentoInicial.setEnabled(false);
-            txtDtVencimentoFinal.setEnabled(false);
-            txtDtVencimentoInicial.setEnabled(false);
-            cmbCategoria.setEnabled(false);
-            cmbFormaPagamento.setEnabled(false);
-            chbContasPagar.setEnabled(false);
-            chbContasReceber.setEnabled(false);
-            chbLiquidadas.setEnabled(false);
-            chbPendentes.setEnabled(false);
+            } else if (filtroHistorico.equals("PAGAR")) {
+                                
+                chbContasPagar.setSelected(true);
+                chbPendentes.setSelected(true);
+                
+                desabilitarCampos();
+                
+                preencherTabelaConsulta("SELECT PESSOAS.CODIGO AS CODIGO, "
+                                      + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
+                                      + "       DOCUMENTONUMERO AS DOCUMENTO, "
+                                      + "       PARCELANUMERO AS PARCELA, "
+                                      + "       DATAVENCIMENTO AS VENCIMENTO, "
+                                      + "       DATAPAGAMENTO AS DTRECEBIDOPAGO, "
+                                      + "       FORMASPAGAMENTO.DESCRICAO AS FORMAPAGAMENTO, "
+                                      + "       VALORDUPLICATA AS VALORDPL, "
+                                      + "       ACRESCIMOS, "
+                                      + "       DESCONTOS, "
+                                      + "       VALORTOTALFATURA AS TOTALFATURA, "                        
+                                      + "       TOTALPAGAR AS TOTALRECEBERPAGAR, "
+                                      + "       VALORPAGO AS VALORRECEBIDOPAGO, "
+                                      + "       CATEGORIA, "
+                                      + "       PLANILHA, "
+                                      + "       DATALANCAMENTO, "
+                                      + "       OPERACAO, "
+                                      + "       OBSERVACOES "                                                
+                                      + "FROM CONTASPAGAR "
+                                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASPAGAR.FORNECEDORCODIGO) "
+                                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASPAGAR.FORMAPAGAMENTO) "
+                                      + "WHERE " + filtroFornecedorCodigo + " AND " 
+                                                 + filtroNumeroDocumento + " AND "
+                                                 + filtroDataVencimento + " AND "
+                                      + "        SITUACAO IN('P', 'PP') "
+                                      + "ORDER BY PESSOA, DOCUMENTONUMERO, PARCELANUMERO");
+
+            } else if (filtroHistorico.equals("TODOS")) {
+                
+                desabilitarCampos();
+                
+                preencherTabelaConsulta("SELECT PESSOAS.CODIGO AS CODIGO, "
+                                      + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
+                                      + "       DOCUMENTONUMERO AS DOCUMENTO, "
+                                      + "       PARCELANUMERO AS PARCELA, "
+                                      + "       DATAVENCIMENTO AS VENCIMENTO, "
+                                      + "       DATARECEBIMENTO AS DTRECEBIDOPAGO, "
+                                      + "       FORMASPAGAMENTO.DESCRICAO AS FORMAPAGAMENTO, "
+                                      + "       VALORDUPLICATA AS VALORDPL, "
+                                      + "       ACRESCIMOS, "
+                                      + "       DESCONTOS, "
+                                      + "       VALORTOTALFATURA AS TOTALFATURA, "                        
+                                      + "       TOTALRECEBER AS TOTALRECEBERPAGAR, "
+                                      + "       VALORRECEBIDO AS VALORRECEBIDOPAGO, "
+                                      + "       CATEGORIA, "
+                                      + "       PLANILHA, "
+                                      + "       DATALANCAMENTO, "
+                                      + "       OPERACAO, "
+                                      + "       OBSERVACOES "                                                
+                                      + "FROM CONTASRECEBER "
+                                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASRECEBER.CLIENTECODIGO) "
+                                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASRECEBER.FORMAPAGAMENTO) "
+                                      + "WHERE " + filtroClienteCodigo + " AND " 
+                                                 + filtroNumeroDocumento + " AND "
+                                                 + filtroDataVencimento + " AND "
+                                      + "        SITUACAO IN('P', 'PR') "
+                        
+                                      + "UNION ALL "
+                        
+                                      + "SELECT PESSOAS.CODIGO AS CODIGO, "
+                                      + "       PESSOAS.RAZAOSOCIAL AS PESSOA, "
+                                      + "       DOCUMENTONUMERO AS DOCUMENTO, "
+                                      + "       PARCELANUMERO AS PARCELA, "
+                                      + "       DATAVENCIMENTO AS VENCIMENTO, "
+                                      + "       DATAPAGAMENTO AS DTRECEBIDOPAGO, "
+                                      + "       FORMASPAGAMENTO.DESCRICAO AS FORMAPAGAMENTO, "
+                                      + "       VALORDUPLICATA AS VALORDPL, "
+                                      + "       ACRESCIMOS, "
+                                      + "       DESCONTOS, "
+                                      + "       VALORTOTALFATURA AS TOTALFATURA, "                        
+                                      + "       TOTALPAGAR AS TOTALRECEBERPAGAR, "
+                                      + "       VALORPAGO AS VALORRECEBIDOPAGO, "
+                                      + "       CATEGORIA, "
+                                      + "       PLANILHA, "
+                                      + "       DATALANCAMENTO, "
+                                      + "       OPERACAO, "
+                                      + "       OBSERVACOES "                        
+                                      + "FROM CONTASPAGAR "
+                                      + "JOIN PESSOAS ON(PESSOAS.CODIGO = CONTASPAGAR.FORNECEDORCODIGO) "
+                                      + "JOIN FORMASPAGAMENTO ON(FORMASPAGAMENTO.CODIGO = CONTASPAGAR.FORMAPAGAMENTO) "
+                                      + "WHERE " + filtroFornecedorCodigo + " AND " 
+                                                 + filtroNumeroDocumento + " AND "
+                                                 + filtroDataVencimento + " AND "
+                                      + "        SITUACAO IN('P', 'PP') "
+                                      + "ORDER BY PESSOA, DOCUMENTO, PARCELA");
+            }
         }
     }
 
@@ -766,7 +862,7 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         BigDecimal valorTotalPagar = BigDecimal.ZERO;
 
         ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"Código", "Cliente/Fornecedor", "Documento", "Parcela", "Vencimento", "Pagamento", "Forma de Pagamento", "Valor Documento", "Acréscimos", "Descontos", "Valor Total"};
+        String[] colunas = new String[]{"Cliente/Fornecedor", "Documento", "Parcela", "Vencimento", "Valor Total", "Valor Recebido/Pago", "Data Rcto/Pgto", "Forma de Pagamento"};
 
         conecta.conexao();
         conecta.executaSql(Sql);
@@ -776,13 +872,22 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                 if (conecta.rs.getDate("DTRECEBIDOPAGO") != null) {
                     dataRecebidoPago = formato.format(conecta.rs.getDate("DTRECEBIDOPAGO"));
                 } else {
-                    dataRecebidoPago = null;
+                    dataRecebidoPago = "";
                 }
 
-                if (pesquisaConsultaContasPagarReceber != null || pesquisaLancamentoCaixa != null) {
-                    dados.add(new Object[]{conecta.rs.getString("CODIGO"), conecta.rs.getString("PESSOA").trim(), conecta.rs.getString("DOCUMENTO"), conecta.rs.getString("PARCELA"), formato.format(conecta.rs.getDate("VENCIMENTO")), dataRecebidoPago, conecta.rs.getString("FORMAPAGAMENTO").trim(), conecta.rs.getString("VALORDPL"), conecta.rs.getString("ACRESCIMOS"), conecta.rs.getString("DESCONTOS"), conecta.rs.getString("TOTALRECEBERPAGAR")});
+                if (pesquisaConsultaContasPagarReceber != null) {
+                    dados.add(new Object[]{conecta.rs.getString("PESSOA").trim(), conecta.rs.getString("DOCUMENTO"), conecta.rs.getString("PARCELA"), 
+                                           formato.format(conecta.rs.getDate("VENCIMENTO")), conecta.rs.getString("TOTALRECEBERPAGAR"), 
+                                           conecta.rs.getString("VALORRECEBIDOPAGO"), dataRecebidoPago, conecta.rs.getString("FORMAPAGAMENTO").trim(), 
+                                           conecta.rs.getString("CODIGO")});
                 } else {
-                    dados.add(new Object[]{conecta.rs.getString("CODIGO"), conecta.rs.getString("PESSOA").trim(), conecta.rs.getString("DOCUMENTO"), conecta.rs.getString("PARCELA"), formato.format(conecta.rs.getDate("VENCIMENTO")), dataRecebidoPago, conecta.rs.getString("FORMAPAGAMENTO").trim(), conecta.rs.getString("VALORDPL"), conecta.rs.getString("ACRESCIMOS"), conecta.rs.getString("DESCONTOS"), conecta.rs.getString("TOTALRECEBERPAGAR"), conecta.rs.getString("TOTALFATURA"), conecta.rs.getString("CATEGORIA"), conecta.rs.getString("PLANILHA"), conecta.rs.getString("DATALANCAMENTO"), conecta.rs.getString("OPERACAO")});
+                    dados.add(new Object[]{conecta.rs.getString("PESSOA").trim(), conecta.rs.getString("DOCUMENTO"), conecta.rs.getString("PARCELA"), 
+                                           formato.format(conecta.rs.getDate("VENCIMENTO")), conecta.rs.getString("TOTALRECEBERPAGAR"), 
+                                           conecta.rs.getString("VALORRECEBIDOPAGO"), dataRecebidoPago, conecta.rs.getString("FORMAPAGAMENTO").trim(),
+                                           conecta.rs.getString("CODIGO"), conecta.rs.getString("VALORDPL"), conecta.rs.getString("ACRESCIMOS"),  
+                                           conecta.rs.getString("DESCONTOS"), conecta.rs.getString("TOTALFATURA"),conecta.rs.getString("CATEGORIA"), 
+                                           conecta.rs.getString("PLANILHA"), conecta.rs.getString("OBSERVACOES"), conecta.rs.getString("DATALANCAMENTO"), 
+                                           conecta.rs.getString("OPERACAO"),});
                     dados.size();
                 }
 
@@ -805,17 +910,14 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
 
         ModeloTabela table = new ModeloTabela(dados, colunas);
         tblConsultaFinanceiro.setModel(table);
-        tblConsultaFinanceiro.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblConsultaFinanceiro.getColumnModel().getColumn(1).setPreferredWidth(180);
-        tblConsultaFinanceiro.getColumnModel().getColumn(2).setPreferredWidth(75);
-        tblConsultaFinanceiro.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tblConsultaFinanceiro.getColumnModel().getColumn(4).setPreferredWidth(80);
-        tblConsultaFinanceiro.getColumnModel().getColumn(5).setPreferredWidth(80);
-        tblConsultaFinanceiro.getColumnModel().getColumn(6).setPreferredWidth(130);
-        tblConsultaFinanceiro.getColumnModel().getColumn(7).setPreferredWidth(95);
-        tblConsultaFinanceiro.getColumnModel().getColumn(8).setPreferredWidth(95);
-        tblConsultaFinanceiro.getColumnModel().getColumn(9).setPreferredWidth(90);
-        tblConsultaFinanceiro.getColumnModel().getColumn(10).setPreferredWidth(92);
+        tblConsultaFinanceiro.getColumnModel().getColumn(0).setPreferredWidth(180);
+        tblConsultaFinanceiro.getColumnModel().getColumn(1).setPreferredWidth(75);
+        tblConsultaFinanceiro.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tblConsultaFinanceiro.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tblConsultaFinanceiro.getColumnModel().getColumn(4).setPreferredWidth(95);
+        tblConsultaFinanceiro.getColumnModel().getColumn(5).setPreferredWidth(95);
+        tblConsultaFinanceiro.getColumnModel().getColumn(6).setPreferredWidth(80);
+        tblConsultaFinanceiro.getColumnModel().getColumn(7).setPreferredWidth(130);
         tblConsultaFinanceiro.getTableHeader().setReorderingAllowed(false);
         tblConsultaFinanceiro.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -826,27 +928,40 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         int index = tblConsultaFinanceiro.getSelectedRow();
         TableModel model = tblConsultaFinanceiro.getModel();
 
-        //Chamada pelo lançamento de caixa;
-        if (pesquisaLancamentoCaixa != null) {
-            conecta.conexao();
-            try {
-                conecta.rs.first();
-                String clienteCodigo = model.getValueAt(index, 0).toString();
-                String clienteDescricao = model.getValueAt(index, 1).toString();
-                String documentoNumero = model.getValueAt(index, 2).toString();
-                String parcelaNumero = model.getValueAt(index, 3).toString();
-                String totalReceber = model.getValueAt(index, 10).toString();
+        conecta.conexao();
+        conecta.executaSql("SELECT * FROM CONTASRECEBER WHERE PLANILHA = '" + index + "'");
+        try {
+            conecta.rs.first();            
+            String pessoaDescricao = model.getValueAt(index, 0).toString();
+            String documentoNumero = model.getValueAt(index, 1).toString();
+            String parcelaNumero = model.getValueAt(index, 2).toString();
+            String dataVencimento = model.getValueAt(index, 3).toString();
+            String totalReceber = model.getValueAt(index, 4).toString();
+            String valorRecebidoPago = model.getValueAt(index, 5).toString();
+            String dataRecebimentoPagamento = model.getValueAt(index, 6).toString();
+            String formaPagamento = model.getValueAt(index, 7).toString();
+            String pessoaCodigo = model.getValueAt(index, 8).toString();
+            String valorDuplicata = model.getValueAt(index, 9).toString();
+            String acrescimos = model.getValueAt(index, 10).toString();
+            String descontos = model.getValueAt(index, 11).toString();
+            String totalFatura = model.getValueAt(index, 12).toString();
+            String categoria = model.getValueAt(index, 13).toString();
+            String planilha = model.getValueAt(index, 14).toString();                
+            String observacoes = model.getValueAt(index, 15).toString().trim();
+            String dataLancamento = model.getValueAt(index, 16).toString();
 
+            //Chamada pelo lançamento de caixa:
+            if (pesquisaLancamentoCaixa != null) {
                 pesquisaLancamentoCaixa.setVisible(true);
                 pesquisaLancamentoCaixa.pack();
                 pesquisaLancamentoCaixa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                 if (pesquisaLancamentoCaixa.txtPessoaCodigo.getText().isEmpty()) {
-                    pesquisaLancamentoCaixa.txtPessoaCodigo.setText(clienteCodigo);
+                    pesquisaLancamentoCaixa.txtPessoaCodigo.setText(pessoaCodigo);
                 }
 
                 if (pesquisaLancamentoCaixa.txtPessoaDescricao.getText().isEmpty()) {
-                    pesquisaLancamentoCaixa.txtPessoaDescricao.setText(clienteDescricao);
+                    pesquisaLancamentoCaixa.txtPessoaDescricao.setText(pessoaDescricao);
                 }
 
                 if (pesquisaLancamentoCaixa.txtDocumentoNumero.getText().isEmpty()) {
@@ -854,40 +969,28 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                 }
 
                 pesquisaLancamentoCaixa.txtParcelaNumero.setText(parcelaNumero);
-                
+
                 NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-                pesquisaLancamentoCaixa.txtValorTotal.setText(nf.format(new BigDecimal(totalReceber)));
+                BigDecimal valorPendente = new BigDecimal(totalReceber).subtract(new BigDecimal(valorRecebidoPago));
+                BigDecimal valorReceber = new BigDecimal(totalReceber);
+                
+                if (valorPendente.compareTo(valorReceber) < 0){
+                    pesquisaLancamentoCaixa.txtValorTotal.setText(valorPendente.toString()); 
+                } else {
+                    pesquisaLancamentoCaixa.txtValorTotal.setText(nf.format(new BigDecimal(totalReceber)));
+                }                
 
                 this.dispose();
 
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao carregar os dados! \n" + ex);
-            }
-        } else if (pesquisaLancamentoContasReceber != null) {
-            conecta.conexao();
-            try {
-                conecta.rs.first();
-                String clienteCodigo = model.getValueAt(index, 0).toString();
-                String clienteDescricao = model.getValueAt(index, 1).toString();
-                String documentoaNumero = model.getValueAt(index, 2).toString();
-                //String parcelaNumero = model.getValueAt(index, 3).toString();
-                //String dataVencimento = model.getValueAt(index, 4).toString();
-                String formaPagamento = model.getValueAt(index, 6).toString();
-                //String valorDuplicata = model.getValueAt(index, 7).toString();
-                //String acrescimos = model.getValueAt(index, 8).toString();
-                //String descontos = model.getValueAt(index, 9).toString();
-                //String totalReceber = model.getValueAt(index, 10).toString();
-                String totalFatura = model.getValueAt(index, 11).toString();
-                String categoria = model.getValueAt(index, 12).toString();
-                String planilha = model.getValueAt(index, 13).toString();
-                String dataLancamento = model.getValueAt(index, 14).toString();
-
+            } else if (pesquisaLancamentoContasReceber != null) {
                 pesquisaLancamentoContasReceber.setVisible(true);
                 pesquisaLancamentoContasReceber.pack();
                 pesquisaLancamentoContasReceber.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                pesquisaLancamentoContasReceber.txtClienteCodigo.setText(clienteCodigo);
-                pesquisaLancamentoContasReceber.txtClienteDescricao.setText(clienteDescricao);
-                pesquisaLancamentoContasReceber.txtDocumentoNumero.setText(documentoaNumero);
+
+                pesquisaLancamentoContasReceber.txtClienteCodigo.setText(pessoaCodigo);
+                pesquisaLancamentoContasReceber.txtClienteDescricao.setText(pessoaDescricao);
+                pesquisaLancamentoContasReceber.txtDocumentoNumero.setText(documentoNumero);
+                pesquisaLancamentoContasReceber.txtParcelaNumero.setText("");
 
                 SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
@@ -904,9 +1007,10 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                 NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
                 pesquisaLancamentoContasReceber.txtValorTotalFatura.setText(nf.format(new BigDecimal(totalFatura)));
                 pesquisaLancamentoContasReceber.txtPlanilha.setText(planilha);
+                pesquisaLancamentoContasReceber.txtObservacoes.setText(observacoes); 
 
                 conecta.conexao();
-                conecta.executaSql("SELECT * FROM CONTASRECEBER WHERE DOCUMENTONUMERO = '" + documentoaNumero + "' AND CLIENTECODIGO = '" + clienteCodigo + "'");
+                conecta.executaSql("SELECT * FROM CONTASRECEBER WHERE DOCUMENTONUMERO = '" + documentoNumero + "' AND CLIENTECODIGO = '" + pessoaCodigo + "'");
                 try {
                     conecta.rs.first();
                     do {
@@ -919,39 +1023,19 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                     conecta.desconecta();
                 }
 
-                pesquisaLancamentoContasReceber.alterando = 1;
-                pesquisaLancamentoContasReceber.incluindo = 0;
-                pesquisaLancamentoContasReceber.btnExcluirLancamento.setEnabled(true);
+            pesquisaLancamentoContasReceber.alterando = 1;
+            pesquisaLancamentoContasReceber.incluindo = 0;
+            pesquisaLancamentoContasReceber.btnExcluirLancamento.setEnabled(true);
 
-                this.dispose();
+            this.dispose();
 
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao carregar os dados! \n" + ex);
-            }
-        } else if (pesquisaLancamentoContasPagar != null) {
-            conecta.conexao();
-            try {
-                conecta.rs.first();
-                String fornecedorCodigo = model.getValueAt(index, 0).toString();
-                String fornecedorDescricao = model.getValueAt(index, 1).toString();
-                String documentoNumero = model.getValueAt(index, 2).toString();
-                //String parcelaNumero = model.getValueAt(index, 3).toString();
-                //String dataVencimento = model.getValueAt(index, 4).toString();
-                String formaPagamento = model.getValueAt(index, 6).toString();
-                //String valorDuplicata = model.getValueAt(index, 7).toString();
-                //String acrescimos = model.getValueAt(index, 8).toString();
-                //String descontos = model.getValueAt(index, 9).toString();
-                //String totalReceber = model.getValueAt(index, 10).toString();
-                String totalFatura = model.getValueAt(index, 11).toString();
-                String categoria = model.getValueAt(index, 12).toString();
-                String planilha = model.getValueAt(index, 13).toString();
-                String dataLancamento = model.getValueAt(index, 14).toString();
-
+            } else if (pesquisaLancamentoContasPagar != null) {
                 pesquisaLancamentoContasPagar.setVisible(true);
                 pesquisaLancamentoContasPagar.pack();
                 pesquisaLancamentoContasPagar.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                pesquisaLancamentoContasPagar.txtFornecedorCodigo.setText(fornecedorCodigo);
-                pesquisaLancamentoContasPagar.txtFornecedorDescricao.setText(fornecedorDescricao);
+
+                pesquisaLancamentoContasPagar.txtFornecedorCodigo.setText(pessoaCodigo);
+                pesquisaLancamentoContasPagar.txtFornecedorDescricao.setText(pessoaDescricao);
                 pesquisaLancamentoContasPagar.txtDocumentoNumero.setText(documentoNumero);
 
                 SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
@@ -963,18 +1047,14 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                     Logger.getLogger(PesquisaProdutos.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                //pesquisaLancamentoContasPagar.txtDataVencimento.setText(dataVencimento);
                 pesquisaLancamentoContasPagar.cmbFormaPagamento.getModel().setSelectedItem(formaPagamento);
                 pesquisaLancamentoContasPagar.cmbCategoria.getModel().setSelectedItem(categoria);
-                //pesquisaLancamentoContasPagar.txtParcelaNumero.setText(parcelaNumero);
+                pesquisaLancamentoContasPagar.txtParcelaNumero.setText(""); 
 
                 NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
                 pesquisaLancamentoContasPagar.txtValorTotalFatura.setText(nf.format(new BigDecimal(totalFatura)));
-                //pesquisaLancamentoContasPagar.txtValorDuplicata.setText(nf.format(new BigDecimal(valorDuplicata)));
-                //pesquisaLancamentoContasPagar.txtAcrescimos.setText(nf.format(new BigDecimal(acrescimos)));
-                //pesquisaLancamentoContasPagar.txtDescontos.setText(nf.format(new BigDecimal(descontos)));
-                //pesquisaLancamentoContasPagar.txtValorTotalReceber.setText(nf.format(new BigDecimal(totalReceber)));
                 pesquisaLancamentoContasPagar.txtPlanilha.setText(planilha);
+                pesquisaLancamentoContasPagar.txtObservacoes.setText(observacoes);
 
                 conecta.conexao();
                 conecta.executaSql("SELECT * FROM CONTASPAGAR WHERE DOCUMENTONUMERO = '" + documentoNumero + "'");
@@ -994,11 +1074,11 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
                 pesquisaLancamentoContasPagar.btnExcluirLancamento.setEnabled(true);
 
                 this.dispose();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao carregar os dados! \n" + ex);
-            }
-        }
+            }        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao carregar os dados! \n" + ex);
+        }        
+        conecta.desconecta();
     }//GEN-LAST:event_tblConsultaFinanceiroMouseClicked
 
     private void txtDocumentoNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoNumeroKeyTyped
@@ -1013,18 +1093,42 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
         txtDtVencimentoFinal.setText("");
         txtDtLancamentoInicial.setText("");
         txtDtLancamentoFinal.setText("");
-        txtClienteFornecedor.setText("");
+        txtPessoaDescricao.setText("");
         txtDocumentoNumero.setText("");
         txtTotalPagar.setText("");
         txtTotalReceber.setText("");
         cmbCategoria.setSelectedItem("SELECIONE");
         cmbFormaPagamento.setSelectedItem("SELECIONE");
         chbPendentes.setSelected(false);
+        chbPendentes.setEnabled(true);
         chbLiquidadas.setSelected(false);
+        chbLiquidadas.setEnabled(true);
         chbContasPagar.setSelected(false);
+        chbContasPagar.setEnabled(true);
         chbContasReceber.setSelected(false);
+        chbContasReceber.setEnabled(true);
     }//GEN-LAST:event_btnLimparActionPerformed
 
+    public void desabilitarCampos() {
+        txtDtVencimentoInicial.setEnabled(false);
+        txtDtVencimentoFinal.setEnabled(false);
+        txtDtLancamentoInicial.setEnabled(false);
+        txtDtLancamentoFinal.setEnabled(false);
+        txtPessoaCodigo.setEnabled(false); 
+        txtPessoaDescricao.setEnabled(false);
+        txtDocumentoNumero.setEnabled(false);
+        txtTotalPagar.setEnabled(false);
+        txtTotalReceber.setEnabled(false);
+        cmbCategoria.setSelectedItem("SELECIONE");
+        cmbCategoria.setEnabled(false);
+        cmbFormaPagamento.setSelectedItem("SELECIONE");
+        cmbFormaPagamento.setEnabled(false); 
+        chbPendentes.setEnabled(false);
+        chbLiquidadas.setEnabled(false);
+        chbContasPagar.setEnabled(false);
+        chbContasReceber.setEnabled(false);    
+    }
+    
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         txtTotalPagar.setText("");
         txtTotalReceber.setText("");
@@ -1096,9 +1200,7 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1107,12 +1209,13 @@ public class ConsultaContasPagarReceber extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tblConsultaFinanceiro;
-    public javax.swing.JTextField txtClienteFornecedor;
     public javax.swing.JTextField txtDocumentoNumero;
     public javax.swing.JFormattedTextField txtDtLancamentoFinal;
     public javax.swing.JFormattedTextField txtDtLancamentoInicial;
     public javax.swing.JFormattedTextField txtDtVencimentoFinal;
     public javax.swing.JFormattedTextField txtDtVencimentoInicial;
+    public javax.swing.JTextField txtPessoaCodigo;
+    public javax.swing.JTextField txtPessoaDescricao;
     private javax.swing.JTextField txtTotalPagar;
     private javax.swing.JTextField txtTotalReceber;
     // End of variables declaration//GEN-END:variables

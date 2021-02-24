@@ -9,6 +9,7 @@ public class BeansHistoricos {
     String bancoDescricao;
     String contaCorrente;
     int movimentaDuplicatas;
+    int movimentaCheque;
     int movimentaSaldoBancario;
     int ativo; 
 
@@ -67,7 +68,15 @@ public class BeansHistoricos {
     public void setMovimentaDuplicatas(int movimentaDuplicatas) {
         this.movimentaDuplicatas = movimentaDuplicatas;
     }
-    
+
+    public int getMovimentaCheque() {
+        return movimentaCheque;
+    }
+
+    public void setMovimentaCheque(int movimentaCheque) {
+        this.movimentaCheque = movimentaCheque;
+    }
+
     public int getMovimentaSaldoBancario() {
         return movimentaSaldoBancario;
     }

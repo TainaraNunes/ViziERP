@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CustoPorVeiculo" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9e12947-4112-4b9d-8369-a67c2174336c">
 	<property name="ireport.zoom" value="1.1000000000000005"/>
-	<property name="ireport.x" value="37"/>
+	<property name="ireport.x" value="70"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="placa" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -16,6 +16,15 @@
 		<defaultValueExpression><![CDATA["%"+$P{modelo}+"%"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="dataVenda" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataVendaInicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataVendaFinal" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT VEICULOS.PLACA,
        VEICULOS.MODELO,
@@ -23,20 +32,34 @@
        VEICULOSCUSTOS.DATAVENDA,
        VEICULOSCUSTOS.PRECOCOMPRA,
        VEICULOSCUSTOS.PRECOVENDA,
+       VEICULOSCUSTOS.CUSTOBATERIA,
+       VEICULOSCUSTOS.CUSTOCARROCERIA,
        VEICULOSCUSTOS.CUSTOCOMBUSTIVEL,
        VEICULOSCUSTOS.CUSTODESPACHANTE,
+       VEICULOSCUSTOS.CUSTOELETRICA,
        VEICULOSCUSTOS.CUSTOIMPOSTOS,
        VEICULOSCUSTOS.CUSTOLATARIAPINTURA,
        VEICULOSCUSTOS.CUSTOLIMPEZA,
        VEICULOSCUSTOS.CUSTOMECANICA,
+       VEICULOSCUSTOS.CUSTOMULTAS,
        VEICULOSCUSTOS.CUSTOPECASACESSORIOS,
        VEICULOSCUSTOS.CUSTOPNEUS,
+       VEICULOSCUSTOS.CUSTORECAPAGEM,
+       VEICULOSCUSTOS.CUSTOTAPECARIA,
+       VEICULOSCUSTOS.CUSTOTORNEARIA,
+       VEICULOSCUSTOS.CUSTOOUTROS,
        VEICULOSCUSTOS.CUSTOTOTAL,
        VEICULOSCUSTOS.MARGEMLUCRO
 FROM VEICULOSCUSTOS
 JOIN VEICULOS ON(VEICULOS.CODIGO = VEICULOSCUSTOS.VEICULOCODIGO)
 WHERE VEICULOS.PLACA LIKE $P{placa_like} AND
-      VEICULOS.MODELO LIKE $P{modelo_like}]]>
+      VEICULOS.MODELO LIKE $P{modelo_like} AND
+      CASE
+         WHEN $P{dataVenda} = 1 THEN
+            DATAVENDA BETWEEN $P{dataVendaInicial} AND $P{dataVendaFinal}
+         WHEN $P{dataVenda} = 2 THEN
+            TRUE
+      END]]>
 	</queryString>
 	<field name="placa" class="java.lang.String"/>
 	<field name="modelo" class="java.lang.String"/>
@@ -44,14 +67,22 @@ WHERE VEICULOS.PLACA LIKE $P{placa_like} AND
 	<field name="datavenda" class="java.sql.Date"/>
 	<field name="precocompra" class="java.math.BigDecimal"/>
 	<field name="precovenda" class="java.math.BigDecimal"/>
+	<field name="custobateria" class="java.math.BigDecimal"/>
+	<field name="custocarroceria" class="java.math.BigDecimal"/>
 	<field name="custocombustivel" class="java.math.BigDecimal"/>
 	<field name="custodespachante" class="java.math.BigDecimal"/>
+	<field name="custoeletrica" class="java.math.BigDecimal"/>
 	<field name="custoimpostos" class="java.math.BigDecimal"/>
 	<field name="custolatariapintura" class="java.math.BigDecimal"/>
 	<field name="custolimpeza" class="java.math.BigDecimal"/>
 	<field name="customecanica" class="java.math.BigDecimal"/>
+	<field name="customultas" class="java.math.BigDecimal"/>
 	<field name="custopecasacessorios" class="java.math.BigDecimal"/>
 	<field name="custopneus" class="java.math.BigDecimal"/>
+	<field name="custorecapagem" class="java.math.BigDecimal"/>
+	<field name="custotapecaria" class="java.math.BigDecimal"/>
+	<field name="custotornearia" class="java.math.BigDecimal"/>
+	<field name="custooutros" class="java.math.BigDecimal"/>
 	<field name="custototal" class="java.math.BigDecimal"/>
 	<field name="margemlucro" class="java.math.BigDecimal"/>
 	<variable name="totalMargemLucro" class="java.math.BigDecimal" calculation="Sum">

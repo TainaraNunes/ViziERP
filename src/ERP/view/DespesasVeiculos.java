@@ -209,7 +209,7 @@ public class DespesasVeiculos extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel7)
                     .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -471,7 +471,7 @@ public class DespesasVeiculos extends javax.swing.JFrame {
     public void pesquisarLancamentos(){
         String whereData, wherePlaca, whereModelo, whereFornecedor;        
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            
+        
         if (txtDataLancamento.getText().trim().length() < 10 ){
             whereData = "TRUE";
         } else {
@@ -516,7 +516,7 @@ public class DespesasVeiculos extends javax.swing.JFrame {
                          + "WHERE " + whereData + " AND   " 
                          + "      " + wherePlaca + " AND  "
                          + "      " + whereModelo + " AND "
-                         + "      " + whereFornecedor + "");
+                         + "      " + whereFornecedor + " ");
 
         try {
             conecta.rs.first();

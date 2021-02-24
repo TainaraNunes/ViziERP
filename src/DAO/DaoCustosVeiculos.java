@@ -16,7 +16,7 @@ public class DaoCustosVeiculos {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VEICULOSCUSTOS(DATACOMPRA, DATAVENDA, PRECOCOMPRA, PRECOVENDA, CUSTOBATERIA, CUSTOCARROCERIA, CUSTOCOMBUSTIVEL, CUSTODESPACHANTE, "
                                                                + "                           CUSTOELETRICA, CUSTOIMPOSTOS, CUSTOLATARIAPINTURA, CUSTOLIMPEZA, CUSTOMECANICA, CUSTOMULTAS, CUSTOPECASACESSORIOS, "
                                                                + "                           CUSTOPNEUS, CUSTORECAPAGEM, CUSTOTAPECARIA, CUSTOTORNEARIA, CUSTOOUTROS, CUSTOTOTAL, MARGEMLUCRO, VEICULOCODIGO)"
-                                                               + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                                               + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             if (!(cus.getDataCompra()== null)) {
                 pst.setDate(1, java.sql.Date.valueOf(cus.getDataCompra()));
             } else {
@@ -66,7 +66,7 @@ public class DaoCustosVeiculos {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE VEICULOSCUSTOS SET DATACOMPRA = ?, DATAVENDA = ?, PRECOCOMPRA = ?, PRECOVENDA = ?, CUSTOBATERIA = ?, CUSTOCARROCERIA = ?, "
                                                                + "                          CUSTOCOMBUSTIVEL = ?, CUSTODESPACHANTE = ?, CUSTOELETRICA = ?, CUSTOIMPOSTOS = ?, CUSTOLATARIAPINTURA = ?, "
                                                                + "                          CUSTOLIMPEZA = ?, CUSTOMECANICA = ?, CUSTOMULTAS = ?, CUSTOPECASACESSORIOS = ?, CUSTOPNEUS = ?, CUSTORECAPAGEM = ?, "
-                                                               + "                          CUSTOTAPECARIA = ?, CUSTOTORNEARIA = ?, CUSTOTOTAL = ?, MARGEMLUCRO = ? "
+                                                               + "                          CUSTOTAPECARIA = ?, CUSTOTORNEARIA = ?, CUSTOOUTROS = ?, CUSTOTOTAL = ?, MARGEMLUCRO = ? "
                                                                + " WHERE VEICULOCODIGO = ? ");
             if (!(cus.getDataCompra()== null)) {
                 pst.setDate(1, java.sql.Date.valueOf(cus.getDataCompra()));

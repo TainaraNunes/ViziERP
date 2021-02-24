@@ -196,7 +196,7 @@ public class RelatorioContasPagar extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addContainerGap()
                 .addComponent(btnVisualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,8 +248,6 @@ public class RelatorioContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     public void gerarRelatorio() {
-        conecta.conexao();
-        
         String empresa = "", fornecedor = "";
         int situacao, formaPagamento, formaPagamentoWhere = 0, dataPagamento;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");

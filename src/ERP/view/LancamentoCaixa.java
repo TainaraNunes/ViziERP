@@ -27,6 +27,7 @@ public class LancamentoCaixa extends javax.swing.JFrame {
 
     ConectaBD conecta = new ConectaBD();
     BeansLancamentoCaixa lanca = new BeansLancamentoCaixa();
+    ConsultaCheques consultaCheques = new ConsultaCheques(this);
     ConsultaContasPagarReceber pesquisaDuplicatas = new ConsultaContasPagarReceber();
     DaoLancamentoCaixa dao = new DaoLancamentoCaixa();
     PesquisaPessoas pesquisaPessoas = new PesquisaPessoas();
@@ -34,6 +35,7 @@ public class LancamentoCaixa extends javax.swing.JFrame {
     
     public int incluindo = 1;
     public int alterando = 0;
+    public String chequeNumero = "", bancoCodigo = "";
 
     public LancamentoCaixa() {
         initComponents();
@@ -43,8 +45,8 @@ public class LancamentoCaixa extends javax.swing.JFrame {
         txtHistorico.setDocument(new Teclas());
         txtContraPartida.setDocument(new Teclas());
         txtPessoaDescricao.setDocument(new Teclas());
+        txtObservacoes.setDocument(new Teclas());
         txtDataLancamento.setText(format.format(new Date()));
-        txtObservacoes.setDocument(new Teclas());        
         
         btnExcluir.setEnabled(false);
         
@@ -180,11 +182,6 @@ public class LancamentoCaixa extends javax.swing.JFrame {
                 txtValorTotalFocusLost(evt);
             }
         });
-        txtValorTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorTotalActionPerformed(evt);
-            }
-        });
         txtValorTotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtValorTotalKeyTyped(evt);
@@ -216,12 +213,6 @@ public class LancamentoCaixa extends javax.swing.JFrame {
             }
         });
 
-        txtContraPartida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraPartidaActionPerformed(evt);
-            }
-        });
-
         btnPesquisarContraPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pesquisar.png"))); // NOI18N
         btnPesquisarContraPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,7 +225,7 @@ public class LancamentoCaixa extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -245,40 +236,38 @@ public class LancamentoCaixa extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtContraPartida)
-                    .addComponent(txtHistorico)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtPessoaCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                            .addComponent(txtDocumentoNumero, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtParcelaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPesquisarDuplicatas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPessoaDescricao)))
-                    .addComponent(txtObservacoes)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContraPartida)
+                            .addComponent(txtHistorico)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtPessoaCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDocumentoNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPesquisarLancamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtParcelaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnPesquisarDuplicatas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPessoaDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnPesquisarLancamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnPesquisarPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPesquisarContraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPesquisarHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(197, 197, 197)
+                        .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtObservacoes))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnPesquisarHistorico, btnPesquisarPessoas});
@@ -418,9 +407,9 @@ public class LancamentoCaixa extends javax.swing.JFrame {
                 .addComponent(btnGravar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSair)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnExcluir, btnGravar, btnNovoLancamento, btnSair});
@@ -470,7 +459,7 @@ public class LancamentoCaixa extends javax.swing.JFrame {
             pesquisaPessoas.setLocationRelativeTo(null);
             pesquisaPessoas.setVisible(true);
             pesquisaPessoas.setResizable(false);
-            pesquisaPessoas.preencherTabela(this, "SELECT * FROM PESSOAS WHERE UPPER(RAZAOSOCIAL) LIKE '%" + txtPessoaDescricao.getText().trim().toUpperCase() + "%' ORDER BY RAZAOSOCIAL");
+            pesquisaPessoas.preencherTabela(this, "SELECT * FROM PESSOAS WHERE RAZAOSOCIAL LIKE '%" + txtPessoaDescricao.getText().trim() + "%' ORDER BY RAZAOSOCIAL");
         } else {
             pesquisaPessoas = new PesquisaPessoas();
             pesquisaPessoas.setLocationRelativeTo(null);
@@ -488,14 +477,23 @@ public class LancamentoCaixa extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int resposta;
-        lanca.setDocumentoNumero(txtDocumentoNumero.getText());
-        lanca.setParcelaNumero(txtParcelaNumero.getText());
-
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dataLancamento = LocalDate.parse(txtDataLancamento.getText(), formato);
         lanca.setDataLancamento(dataLancamento);
 
-        String contraPartida = txtHistorico.getText();
+        String historico = txtHistorico.getText();
+        conecta.conexao();
+        conecta.executaSql("SELECT HISTORICOCODIGO FROM HISTORICOS WHERE HISTORICODESCRICAO = '" + historico + "'");
+        try {
+            if (conecta.rs.next()) {
+                historico = conecta.rs.getString("HISTORICOCODIGO");
+                lanca.setOperacao(historico);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String contraPartida = txtContraPartida.getText();
         conecta.conexao();
         conecta.executaSql("SELECT HISTORICOCODIGO FROM HISTORICOS WHERE HISTORICODESCRICAO = '" + contraPartida + "'");
         try {
@@ -507,6 +505,10 @@ public class LancamentoCaixa extends javax.swing.JFrame {
             Logger.getLogger(LancamentoCaixa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        lanca.setPessoaCodigo(Integer.parseInt(txtPessoaCodigo.getText())); 
+        lanca.setDocumentoNumero(txtDocumentoNumero.getText());
+        lanca.setParcelaNumero(txtParcelaNumero.getText());
+        
         if (txtValorTotal.getText().contains("R$")) {
             String valor = txtValorTotal.getText().replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
             BigDecimal valorTotal = new BigDecimal(valor);
@@ -518,7 +520,7 @@ public class LancamentoCaixa extends javax.swing.JFrame {
 
         resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir este lançamento?");
         if (resposta == JOptionPane.YES_OPTION) {
-            dao.excluirLancamentoCaixa(lanca);
+            dao.lancamentoCaixaEliminar(lanca);
             limpaCampos();
             btnExcluir.setEnabled(false);
             consultaLancamentos(false);
@@ -588,7 +590,7 @@ public class LancamentoCaixa extends javax.swing.JFrame {
 
             lanca.setObservacoes(txtObservacoes.getText());
 
-            dao.gravarLancamentoCaixa(lanca, this);
+            dao.lancamentoCaixaGravar(lanca, this);
             consultaLancamentos(false);
             limpaCampos();
         }
@@ -782,13 +784,12 @@ public class LancamentoCaixa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPesquisarContraPartidaActionPerformed
 
-    private void txtContraPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraPartidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContraPartidaActionPerformed
-
-    private void txtValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorTotalActionPerformed
+    public void carregarCheque(){
+        consultaCheques = new ConsultaCheques(this);
+        consultaCheques.setLocationRelativeTo(null);
+        consultaCheques.setVisible(true);
+        consultaCheques.habilitarBotaoCadastro(true); 
+    }
 
     public void consultaLancamentos(boolean mostrarMensagem) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");

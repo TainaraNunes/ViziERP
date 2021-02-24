@@ -1,13 +1,6 @@
 package Relatorios;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Beans.Teclas;
 import Conection.ConectaBD;
-import static Conection.ConectaBD.Read;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -228,110 +220,81 @@ public class RelatorioLancamentoCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     public void gerarRelatorio() {
-        InputStream arquivoconexao = null;
+        conecta.conexao();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataLancamentoInicial, dataLancamentoFinal;
+        int historico, contraPartida;
+        String historicoWhere = "", contraPartidaWhere = "", clienteFornecedor = "", empresa = "";
+        HashMap filtro = new HashMap();
+
+        //Filtro período de lançamento:
+        if (txtDataLancamentoInicial.getText().trim().length() == 10 || txtDataLancamentoFinal.getText().trim().length() == 10) {
+            try {
+                dataLancamentoInicial = format.parse(txtDataLancamentoInicial.getText());
+                dataLancamentoFinal = format.parse(txtDataLancamentoFinal.getText());
+
+                filtro.put("dataLancamentoInicial", dataLancamentoInicial);
+                filtro.put("dataLancamentoFinal", dataLancamentoFinal);
+            } catch (ParseException ex) {
+                Logger.getLogger(RelatorioContasReceber.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe o período de vencimento para consultar!");
+            txtDataLancamentoInicial.requestFocus();
+        }
+
+        //Filtro histórico:
+        if (cmbHistorico.getSelectedItem().toString().trim().equals("TODOS")) {
+            historico = 1;
+        } else {
+            historico = 2;
+            historicoWhere = cmbHistorico.getSelectedItem().toString().trim();
+        }
+        filtro.put("historico", historico);
+        filtro.put("historicoWhere", historicoWhere);
+
+        //Filtro contra partida:
+        if (cmbContraPartida.getSelectedItem().toString().trim().equals("TODOS")) {
+            contraPartida = 1;
+        } else {
+            contraPartida = 2;
+            contraPartidaWhere = cmbContraPartida.getSelectedItem().toString().trim();
+        }
+        filtro.put("contraPartida", contraPartida);
+        filtro.put("contraPartidaWhere", contraPartidaWhere);
+
+        //Filtro cliente;fornecedor:
+        if (!txtClienteFornecedor.getText().isEmpty()) {
+            clienteFornecedor = txtClienteFornecedor.getText().trim();
+        }
+        filtro.put("clienteFornecedor", clienteFornecedor);
+
+        //Filtro empresa:
+        conecta.conexao();
+        conecta.executaSql("SELECT * FROM EMPRESAS");        
         try {
-            String diretorio = System.getProperty("user.dir");
-            if(diretorio.contains("Vizipostos")){
-                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/modeloConection/conexaovizipostos.txt");            
+            if (conecta.rs.next()) {
+                empresa = conecta.rs.getString("FANTASIA");
             } else {
-                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/modeloConection/conexaovizitrucks.txt");            
+                return;
             }
+            filtro.put("empresa", empresa);
 
-            InputStreamReader arquivo = new InputStreamReader(arquivoconexao);
-            BufferedReader buffer = new BufferedReader(arquivo);            
-            String conteudo = buffer.readLine();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar empresas cadastradas: " + ex.getMessage());
+        }
 
-            String driver = conteudo.split(";")[0];
-            String caminhoBanco = conteudo.split(";")[1];
-            String usuarioBanco = conteudo.split(";")[2];
-            String senha = conteudo.split(";")[3];
-            Connection conn = null;
+        InputStream jasperFile = Thread.currentThread().getClass().getResourceAsStream("/Relatorios/LancamentoCaixa.jasper");
+        JasperPrint jPrint = null;       
 
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            Date dataLancamentoInicial, dataLancamentoFinal;
-            int historico, contraPartida;
-            String historicoWhere = "", contraPartidaWhere = "", clienteFornecedor = "", empresa = "";
-            HashMap filtro = new HashMap();
-
-            //Filtro período de lançamento:
-            if (txtDataLancamentoInicial.getText().trim().length() == 10 || txtDataLancamentoFinal.getText().trim().length() == 10) {
-                try {
-                    dataLancamentoInicial = format.parse(txtDataLancamentoInicial.getText());
-                    dataLancamentoFinal = format.parse(txtDataLancamentoFinal.getText());
-
-                    filtro.put("dataLancamentoInicial", dataLancamentoInicial);
-                    filtro.put("dataLancamentoFinal", dataLancamentoFinal);
-                } catch (ParseException ex) {
-                    Logger.getLogger(RelatorioContasReceber.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Informe o período de vencimento para consultar!");
-                txtDataLancamentoInicial.requestFocus();
-            }
-
-            //Filtro histórico:
-            if (cmbHistorico.getSelectedItem().toString().trim().equals("TODOS")) {
-                historico = 1;
-            } else {
-                historico = 2;
-                historicoWhere = cmbHistorico.getSelectedItem().toString().trim();
-            }
-            filtro.put("historico", historico);
-            filtro.put("historicoWhere", historicoWhere);
-
-            //Filtro contra partida:
-            if (cmbContraPartida.getSelectedItem().toString().trim().equals("TODOS")) {
-                contraPartida = 1;
-            } else {
-                contraPartida = 2;
-                contraPartidaWhere = cmbContraPartida.getSelectedItem().toString().trim();
-            }
-            filtro.put("contraPartida", contraPartida);
-            filtro.put("contraPartidaWhere", contraPartidaWhere);
-
-            //Filtro cliente;fornecedor:
-            if (!txtClienteFornecedor.getText().isEmpty()) {
-                clienteFornecedor = txtClienteFornecedor.getText().trim();
-            }
-            filtro.put("clienteFornecedor", clienteFornecedor);
-
-            //Filtro empresa:
-            conecta.conexao();
-            conecta.executaSql("SELECT * FROM EMPRESAS");        
-            try {
-                if (conecta.rs.next()) {
-                    empresa = conecta.rs.getString("FANTASIA");
-                } else {
-                    return;
-                }
-                filtro.put("empresa", empresa);
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao carregar empresas cadastradas: " + ex.getMessage());
-            }
-
-            try {
-                Class.forName(driver);
-                conn = DriverManager.getConnection(caminhoBanco, usuarioBanco, senha);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RelatorioLancamentoCaixa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(RelatorioLancamentoCaixa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            InputStream jasperFile = Thread.currentThread().getClass().getResourceAsStream("/Relatorios/LancamentoCaixa.jasper");
-            JasperPrint jPrint = null;       
-
-            try {
-                jPrint = JasperFillManager.fillReport(jasperFile, filtro, conn);
-                JasperViewer view = new JasperViewer(jPrint, false);
-                view.setVisible(true);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao carregar dados: " + ex.getMessage());
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(ConectaBD.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-        }            
+        try {
+            jPrint = JasperFillManager.fillReport(jasperFile, filtro, conecta.con);
+            JasperViewer view = new JasperViewer(jPrint, false);
+            view.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar dados: " + ex.getMessage());
+        }
     }
 
     private void popularComboHistoricos() {

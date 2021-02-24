@@ -836,28 +836,28 @@ public class CustosVeiculos extends javax.swing.JFrame {
             }                          
 
             if (!txtCustoRecapagem.getText().isEmpty()){
-                String sCustoRecapagem = txtCustoPneus.getText().replace(" ", "").replace(".", "").replace(",", ".");
+                String sCustoRecapagem = txtCustoRecapagem.getText().replace(" ", "").replace(".", "").replace(",", ".");
                 custos.setCustosRecapagem(new BigDecimal(sCustoRecapagem));
             } else {
                 custos.setCustosRecapagem(BigDecimal.ZERO);
             }    
 
             if (!txtCustoTapecaria.getText().isEmpty()){
-                String sCustoTapecaria = txtCustoPneus.getText().replace(" ", "").replace(".", "").replace(",", ".");
+                String sCustoTapecaria = txtCustoTapecaria.getText().replace(" ", "").replace(".", "").replace(",", ".");
                 custos.setCustosTapecaria(new BigDecimal(sCustoTapecaria));
             } else {
                 custos.setCustosTapecaria(BigDecimal.ZERO);
             }    
             
             if (!txtCustoTornearia.getText().isEmpty()){
-                String sCustoTornearia = txtCustoPneus.getText().replace(" ", "").replace(".", "").replace(",", ".");
+                String sCustoTornearia = txtCustoTornearia.getText().replace(" ", "").replace(".", "").replace(",", ".");
                 custos.setCustosTornearia(new BigDecimal(sCustoTornearia));
             } else {
                 custos.setCustosTornearia(BigDecimal.ZERO);
             }                
 
             if (!txtCustoOutros.getText().isEmpty()){
-                String sCustoOutros = txtCustoPneus.getText().replace(" ", "").replace(".", "").replace(",", ".");
+                String sCustoOutros = txtCustoOutros.getText().replace(" ", "").replace(".", "").replace(",", ".");
                 custos.setCustosOutros(new BigDecimal(sCustoOutros));
             } else {
                 custos.setCustosOutros(BigDecimal.ZERO);

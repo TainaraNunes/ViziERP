@@ -1,1 +1,1 @@
-org.postgresql.Driver;jdbc:postgresql://localhost:5432/vizipostos;postgres;postgres
+org.postgresql.Driver;jdbc:postgresql://localhost:5432/teste_vizipostos;postgres;postgres

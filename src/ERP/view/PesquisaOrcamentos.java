@@ -46,7 +46,7 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
         String dataAbertura, dataValidade;
                 
         ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"Orcamento", "Cliente", "Abertura", "Validade", "Situação"};
+        String[] colunas = new String[]{"Orcamento", "Cliente", "Abertura", "Validade", "Situação", "Valor Total"};
         conecta.conexao();
         conecta.executaSql(Sql);
 
@@ -58,8 +58,8 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
                 String orcamentoNumero = String.valueOf(String.format("%06d", conecta.rs.getInt("NUMERO")));
                 
                 dados.add(new Object[]{orcamentoNumero, conecta.rs.getString("RAZAOSOCIAL").trim(), dataAbertura, dataValidade, conecta.rs.getString("SITUACAO"), 
-                                       conecta.rs.getString("CLIENTECODIGO"), conecta.rs.getString("VALORTOTALSERVICOS"), conecta.rs.getString("VALORDESCONTOSERVICOS"), 
-                                       conecta.rs.getString("VALORTOTALORCAMENTO"), conecta.rs.getString("FORMAPAGAMENTO"), conecta.rs.getString("OBSERVACOES"), 
+                                       conecta.rs.getString("VALORTOTALORCAMENTO"), conecta.rs.getString("CLIENTECODIGO"), conecta.rs.getString("VALORTOTALSERVICOS"), 
+                                       conecta.rs.getString("VALORDESCONTOSERVICOS"), conecta.rs.getString("FORMAPAGAMENTO"), conecta.rs.getString("OBSERVACOES"), 
                                        conecta.rs.getString("VERSAO"), conecta.rs.getString("VALORTOTALPECAS"), conecta.rs.getString("VALORDESCONTOSPECAS")}); 
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -78,8 +78,10 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
         tblOrcamentos.getColumnModel().getColumn(2).setResizable(false); 
         tblOrcamentos.getColumnModel().getColumn(3).setPreferredWidth(10); 
         tblOrcamentos.getColumnModel().getColumn(3).setResizable(false); 
-        tblOrcamentos.getColumnModel().getColumn(4).setPreferredWidth(5); 
+        tblOrcamentos.getColumnModel().getColumn(4).setPreferredWidth(8); 
         tblOrcamentos.getColumnModel().getColumn(4).setResizable(false); 
+        tblOrcamentos.getColumnModel().getColumn(5).setPreferredWidth(10); 
+        tblOrcamentos.getColumnModel().getColumn(5).setResizable(false); 
 
         tblOrcamentos.getTableHeader().setReorderingAllowed(false); 
         tblOrcamentos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -102,11 +104,11 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Orçamento", "Cliente", "Abertura", "Validade", "Situação"
+                "Orçamento", "Cliente", "Abertura", "Validade", "Situação", "Valor Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -129,7 +131,9 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
             tblOrcamentos.getColumnModel().getColumn(3).setResizable(false);
             tblOrcamentos.getColumnModel().getColumn(3).setPreferredWidth(10);
             tblOrcamentos.getColumnModel().getColumn(4).setResizable(false);
-            tblOrcamentos.getColumnModel().getColumn(4).setPreferredWidth(5);
+            tblOrcamentos.getColumnModel().getColumn(4).setPreferredWidth(8);
+            tblOrcamentos.getColumnModel().getColumn(5).setResizable(false);
+            tblOrcamentos.getColumnModel().getColumn(5).setPreferredWidth(10);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,7 +142,7 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -164,10 +168,10 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
             String dataAbertura = model.getValueAt(index, 2).toString();            
             String dataValidade = model.getValueAt(index, 3).toString();
             String situacao = model.getValueAt(index, 4).toString();
-            String clienteCodigo = model.getValueAt(index, 5).toString();
-            String valorTotalServicos = model.getValueAt(index, 6).toString();
-            String valorDescontosServicos = model.getValueAt(index, 7).toString();
-            String valorTotalOrcamento = model.getValueAt(index, 8).toString();
+            String valorTotalOrcamento = model.getValueAt(index, 5).toString();
+            String clienteCodigo = model.getValueAt(index, 6).toString();
+            String valorTotalServicos = model.getValueAt(index, 7).toString();
+            String valorDescontosServicos = model.getValueAt(index, 8).toString();
             String formaPagamento = model.getValueAt(index, 9).toString();
             String observacoes = (String) model.getValueAt(index, 10);
             String versaoOrcamento = model.getValueAt(index, 11).toString();
@@ -319,8 +323,10 @@ public class PesquisaOrcamentos extends javax.swing.JFrame {
 
                 orcamento.incluindo = 0;
                 orcamento.alterando = 1;            
+
                 this.dispose();
                 return;                
+                
             } else if (relatorioOrcamentos != null) {                
                 relatorioOrcamentos.setVisible(true);
                 relatorioOrcamentos.pack();

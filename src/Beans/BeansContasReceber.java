@@ -21,7 +21,10 @@ public class BeansContasReceber {
     private BigDecimal acrescimos;
     private BigDecimal descontos;
     private BigDecimal totalReceber;
+    private BigDecimal valorRecebido;
+    private String situacao;
     private String usuario;
+    private String observacoes;
 
     public String getOperacao() {
         return operacao;
@@ -151,6 +154,22 @@ public class BeansContasReceber {
         this.totalReceber = totalReceber;
     }
 
+    public BigDecimal getValorRecebido() {
+        return valorRecebido;
+    }
+
+    public void setValorRecebido(BigDecimal valorRecebido) {
+        this.valorRecebido = valorRecebido;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+
     public String getUsuario() {
         return usuario;
     }
@@ -159,4 +178,11 @@ public class BeansContasReceber {
         this.usuario = usuario;
     }
 
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
 }

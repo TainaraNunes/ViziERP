@@ -130,11 +130,11 @@ public class ConexaoBancoDados extends javax.swing.JFrame {
             String diretorio = System.getProperty("user.dir");
 
             if(diretorio.contains("Vizipostos")){
-                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/modeloConection/conexaovizipostos.txt");            
+                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/Conection/conexaovizipostos.txt");            
             } else if(diretorio.contains("Vizitrucks")){
-                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/modeloConection/conexaovizitrucks.txt");            
+                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/Conection/conexaovizitrucks.txt");            
             } else {
-                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/modeloConection/conexao.txt");            
+                arquivoconexao = Thread.currentThread().getClass().getResourceAsStream("/Conection/conexao.txt");            
             }
 
             InputStreamReader arquivo = new InputStreamReader(arquivoconexao);

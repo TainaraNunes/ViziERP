@@ -39,7 +39,7 @@ public class DaoPessoas {
             pst.execute();
 
             //Grava os dados da aba dados técnicos na tabela própria se tiver infrmação nos campos.
-            if (pess.getTanquesQuantidade() != 0 || pess.getBombasQuantidade() != 0 || pess.getCompartimentosQuantidade() != 0 || pess.getFiltrosQuantidade() != 0) {
+            if (pess.getVencimentoLicencaOperacao() != null || !pess.getContatoResponsavel().equals("") || pess.getTanquesQuantidade() != 0 && pess.getBombasQuantidade() != 0 && pess.getCompartimentosQuantidade() != 0 && pess.getFiltrosQuantidade() != 0 || pess.getDataFabricacaoTanque() != null || pess.getDataFabricacaoBomba() != null) {
                 gravarDadosTecnicosCliente(pess);
             }
             
@@ -127,10 +127,11 @@ public class DaoPessoas {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PESSOAS WHERE CODIGO = ?");
             pst.setInt(1, pess.getCodigo());
-            pst.execute();
-            
+
             //Exclui os dados técnicos do cliente da tabela própria.
-            excluirDadosTecnicosCliente(pess);
+            excluirDadosTecnicosCliente(pess.getCodigo());
+            
+            pst.execute();
             
             JOptionPane.showMessageDialog(null, "Cadastro eliminado com sucesso!");
         } catch (SQLException ex) {
@@ -209,11 +210,11 @@ public class DaoPessoas {
         conecta.desconecta();
     }
     
-    public void excluirDadosTecnicosCliente(BeansPessoas pess) {
+    public void excluirDadosTecnicosCliente(int pessoaCodigo) {
         conecta.conexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM CLIENTESDADOSTECNICOS WHERE CLIENTECODIGO = ?");
-            pst.setInt(1, pess.getCodigo());
+            pst.setInt(1, pessoaCodigo);
             pst.execute();            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível eliminar os dados técnicos do cliente! \n" + ex);

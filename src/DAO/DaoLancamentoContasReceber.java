@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import Beans.BeansContasReceber;
 import Conection.ConectaBD;
 import ERP.view.LancamentoContasReceber;
+import java.math.BigInteger;
 
 public class DaoLancamentoContasReceber {
 
@@ -66,6 +67,9 @@ public class DaoLancamentoContasReceber {
     }
 
     public void alterarDuplicataTabela(LancamentoContasReceber contasReceber) {
+        String parcelaNumero = contasReceber.txtParcelaNumero.getText().trim();
+        int proximoNumeroParcela = 0;
+        
         if (contasReceber.tblParcelas.getSelectedRow() != -1) {
             contasReceber.tblParcelas.setValueAt(contasReceber.txtParcelaNumero.getText(), contasReceber.tblParcelas.getSelectedRow(), 0);
             contasReceber.tblParcelas.setValueAt(contasReceber.txtVencimentoParcela.getText(), contasReceber.tblParcelas.getSelectedRow(), 1);
@@ -74,14 +78,21 @@ public class DaoLancamentoContasReceber {
             contasReceber.tblParcelas.setValueAt(contasReceber.txtDescontos.getText().replace("R$", "").replace(" ", "").replace(".", "").replace(",", "."), contasReceber.tblParcelas.getSelectedRow(), 4);
             contasReceber.tblParcelas.setValueAt(contasReceber.txtValorTotalReceber.getText().replace("R$", "").replace(" ", "").replace(".", "").replace(",", "."), contasReceber.tblParcelas.getSelectedRow(), 5);
         }
-
-        contasReceber.txtParcelaNumero.setText("");
-        contasReceber.txtParcelaNumero.requestFocus();
+        
+        if (parcelaNumero.contains("AVUL")){
+            proximoNumeroParcela = Integer.parseInt(parcelaNumero.substring(4)) + 1; 
+            contasReceber.txtParcelaNumero.setText("AVUL" + String.valueOf(proximoNumeroParcela));
+        } else {
+            proximoNumeroParcela = Integer.parseInt(parcelaNumero) + 1; 
+            contasReceber.txtParcelaNumero.setText(String.valueOf(proximoNumeroParcela));
+        }
+                        
         contasReceber.txtVencimentoParcela.setText("");
         contasReceber.txtValorParcela.setText("");
         contasReceber.txtAcrescimos.setText("");
         contasReceber.txtDescontos.setText("");
         contasReceber.txtValorTotalReceber.setText("");
+        contasReceber.txtVencimentoParcela.requestFocus();
     }
 
     public void gravarDuplicatasReceber(BeansContasReceber beansContasReceber, LancamentoContasReceber contasReceber) {
@@ -90,10 +101,7 @@ public class DaoLancamentoContasReceber {
         conecta.conexao();
         try {
             if (contasReceber.alterando == 1) {
-                /*********************************************************************************
-                 * Deleta somente o que não teve recebimentos para inserir o
-                 * registro atualizado.  
-                *********************************************************************************/
+                /* Deleta somente o que não teve recebimentos para inserir o registro atualizado. */
                 PreparedStatement pst2 = conecta.con.prepareStatement("DELETE FROM CONTASRECEBER WHERE PLANILHA = ? AND DATARECEBIMENTO IS NULL");
                 pst2.setInt(1, beansContasReceber.getPlanilha());
                 pst2.execute();
@@ -101,8 +109,8 @@ public class DaoLancamentoContasReceber {
 
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO CONTASRECEBER (PLANILHA, OPERACAO, DATALANCAMENTO, DOCUMENTONUMERO, VALORTOTALFATURA, FORMAPAGAMENTO, "
                                                                                           + "CATEGORIA, CLIENTECODIGO, PARCELANUMERO, DATAVENCIMENTO, VALORDUPLICATA, ACRESCIMOS, "
-                                                                                          + "DESCONTOS, TOTALRECEBER, DATARECEBIMENTO, USUARIO) "
-                                                               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                                                                          + "DESCONTOS, TOTALRECEBER, VALORRECEBIDO, DATARECEBIMENTO, SITUACAO, USUARIO, OBSERVACOES) "
+                                                               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             if (contasReceber.incluindo == 1) {
                 pst.setInt(1, gerarPlanilhaContasReceber());
@@ -113,8 +121,8 @@ public class DaoLancamentoContasReceber {
             }
 
             for (int x = 0; x < contasReceber.tblParcelas.getRowCount(); x++) {
-            // O sistema vai passar por todos os registros da tabela para inserir os valores. 
-            // Quando encontrar um registro, significa que teve recebimento e pula para a próxima linha. 
+               /* O sistema vai passar por todos os registros da tabela para inserir os valores. 
+                * Quando encontrar um registro, significa que teve recebimento e pula para a próxima linha. */
                 conecta.conexao();
                 conecta.executaSql("SELECT * FROM CONTASRECEBER WHERE PLANILHA = '" + imprimirPlanilha + "' AND DOCUMENTONUMERO = '" + beansContasReceber.getDocumentoNumero() + "' AND PARCELANUMERO = '" + contasReceber.tblParcelas.getValueAt(x, 0) + "'");
 
@@ -157,9 +165,14 @@ public class DaoLancamentoContasReceber {
                 String totalReceber = (String) contasReceber.tblParcelas.getValueAt(x, 5);
                 BigDecimal valorTotalReceber = new BigDecimal(totalReceber);
                 pst.setBigDecimal(14, valorTotalReceber);
-
-                pst.setNull(15, 0);
-                pst.setString(16, System.getProperty("usuario"));
+               
+                BigDecimal valorRecebido = new BigDecimal(BigInteger.ZERO); 
+                pst.setBigDecimal(15, valorRecebido);
+                
+                pst.setNull(16, 0);                
+                pst.setString(17, beansContasReceber.getSituacao());
+                pst.setString(18, System.getProperty("usuario"));
+                pst.setString(19, beansContasReceber.getObservacoes());
 
                 pst.execute();
             }
@@ -185,12 +198,9 @@ public class DaoLancamentoContasReceber {
 
         conecta.conexao();
         try {
-            for (int x = 0; x < contasReceber.tblParcelas.getRowCount(); x++) {
-                 /**************************************************************
-                 * Passa por todos os registros da tabela e verifica se alguma
-                 * parcela já foi recebida * caso não (possuiRecebimento == 0),
-                 * elimina o registro da duplicata se não volta para a tela. 
-                 ***************************************************************/
+            for (int x = 0; x < contasReceber.tblParcelas.getRowCount(); x++) {                 
+               /* Passa por todos os registros da tabela e verifica se alguma parcela já foi recebida.
+                * Caso não, elimina o registro da duplicata se não volta para a tela. */ 
                 conecta.executaSql("SELECT * FROM CONTASRECEBER "
                                  + "WHERE PLANILHA = '" + planilha + "' AND "
                                  + "      DOCUMENTONUMERO = '" + documentoNumero + "' AND "
@@ -242,11 +252,9 @@ public class DaoLancamentoContasReceber {
         }
     }
 
+    /* Valida se o valor total da fatura é igual a soma do valor das parcelas. 
+     * Não considerando os acréscimos ou descontos. */
     public boolean validarTotais(LancamentoContasReceber contasReceber) {
-    /*************************************************************************
-     * Valida se o valor total da fatura é igual a soma do valor das
-     * parcelas. Não considerando os acréscimos ou descontos. 
-     *************************************************************************/
         boolean resultado;
         BigDecimal totalDuplicatas = BigDecimal.ZERO;
         String valorFatura = (String) contasReceber.txtValorTotalFatura.getText().replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");

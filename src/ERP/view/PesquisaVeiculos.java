@@ -383,7 +383,7 @@ public class PesquisaVeiculos extends javax.swing.JFrame {
                 custosVeiculos.consultarCustosVeiculos();
                 custosVeiculos.btnExcluir.setEnabled(true); 
                 custosVeiculos.btnAtualizarCustos.setEnabled(true); 
-                
+
                 this.dispose();
                 return;
 

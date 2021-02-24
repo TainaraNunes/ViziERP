@@ -49,6 +49,7 @@ public class CadastroHistoricos extends javax.swing.JFrame {
         cbxContraPartida = new javax.swing.JCheckBox();
         cbxMovimentaDuplicatas = new javax.swing.JCheckBox();
         cbxAtivo = new javax.swing.JCheckBox();
+        cbxMovimentaCheque = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         btnGravar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -85,6 +86,7 @@ public class CadastroHistoricos extends javax.swing.JFrame {
 
         cbxLancaSaida.setText("Saída");
 
+        txtHistoricoCodigo.setEditable(false);
         txtHistoricoCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtHistoricoCodigoKeyTyped(evt);
@@ -97,6 +99,8 @@ public class CadastroHistoricos extends javax.swing.JFrame {
 
         cbxAtivo.setSelected(true);
         cbxAtivo.setText("Ativo");
+
+        cbxMovimentaCheque.setText("Movimenta cheques");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,7 +118,13 @@ public class CadastroHistoricos extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(txtHistoricoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbxAtivo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxMovimentaCheque)
                             .addComponent(cbxMovimentaDuplicatas)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
@@ -126,12 +136,7 @@ public class CadastroHistoricos extends javax.swing.JFrame {
                                 .addComponent(cbxLancaSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbxContraPartida)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(txtHistoricoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbxAtivo)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,7 +159,9 @@ public class CadastroHistoricos extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxMovimentaDuplicatas)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbxMovimentaCheque)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -198,9 +205,9 @@ public class CadastroHistoricos extends javax.swing.JFrame {
                 .addComponent(btnExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAbandonar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnExcluir, btnGravar, btnSair});
@@ -351,12 +358,12 @@ public class CadastroHistoricos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -398,7 +405,13 @@ public class CadastroHistoricos extends javax.swing.JFrame {
             } else {
                 historico.setMovimentaDuplicatas(0);
             }
-            
+
+            if (cbxMovimentaCheque.isSelected()) {
+                historico.setMovimentaCheque(1);
+            } else {
+                historico.setMovimentaCheque(0);
+            }
+                        
             if (cbxMovimentaSaldoBancario.isSelected()) {
                 historico.setMovimentaSaldo(1);                
                 historico.setBancoCodigo(txtBancoCodigo.getText());
@@ -437,7 +450,13 @@ public class CadastroHistoricos extends javax.swing.JFrame {
             } else {
                 historico.setMovimentaDuplicatas(0);
             }
-                        
+            
+            if (cbxMovimentaCheque.isSelected()) {
+                historico.setMovimentaCheque(1);
+            } else {
+                historico.setMovimentaCheque(0);
+            }
+                                    
             if (cbxMovimentaSaldoBancario.isSelected()) {
                 historico.setMovimentaSaldo(1);                
                 historico.setBancoCodigo(txtBancoCodigo.getText());
@@ -566,6 +585,7 @@ public class CadastroHistoricos extends javax.swing.JFrame {
         cbxLancaSaida.setSelected(false);
         cbxContraPartida.setSelected(false);
         cbxMovimentaDuplicatas.setSelected(false);
+        cbxMovimentaCheque.setSelected(false); 
         cbxMovimentaSaldoBancario.setSelected(false);
         txtBancoCodigo.setText("");
         txtBancoDescricao.setText("");
@@ -609,6 +629,7 @@ public class CadastroHistoricos extends javax.swing.JFrame {
     public javax.swing.JCheckBox cbxContraPartida;
     public javax.swing.JCheckBox cbxLancaEntrada;
     public javax.swing.JCheckBox cbxLancaSaida;
+    public javax.swing.JCheckBox cbxMovimentaCheque;
     public javax.swing.JCheckBox cbxMovimentaDuplicatas;
     public javax.swing.JCheckBox cbxMovimentaSaldoBancario;
     private javax.swing.JLabel jLabel1;

@@ -1,10 +1,11 @@
 package DAO;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class DaoFuncoes {
+    
     public boolean stringNumerica(String cString){
         boolean lStringNumerica = true;
             
@@ -18,10 +19,17 @@ public class DaoFuncoes {
         return lStringNumerica;
     }
     
-    public LocalDate DataFormatoLocalDate(String data){
+    public LocalDate StringParaLocalDate(String data){
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dataString = LocalDate.parse(data, formato);
         
         return dataString;
     }
+    
+    public BigDecimal StringParaBigDecimal(String valor){
+        String valorString = valor.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
+        BigDecimal valorBigDecimal = new BigDecimal(valorString);
+        
+        return valorBigDecimal;
+    }    
 }

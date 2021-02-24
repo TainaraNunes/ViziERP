@@ -149,7 +149,7 @@ public class RelatorioCustosPorVeiculo extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                .addContainerGap()
                 .addComponent(btnVisualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSair)
@@ -214,7 +214,7 @@ public class RelatorioCustosPorVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProcurarVeiculoActionPerformed
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-    //    conecta.conexao();
+        conecta.conexao();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date dataVendaInicial, dataVendaFinal;
         String placa = "", modelo = "", empresa = "";
