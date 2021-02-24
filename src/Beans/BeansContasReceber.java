@@ -22,6 +22,7 @@ public class BeansContasReceber {
     private BigDecimal descontos;
     private BigDecimal totalReceber;
     private BigDecimal valorRecebido;
+    private BigDecimal saldoPendente;
     private String situacao;
     private String usuario;
     private String observacoes;
@@ -160,6 +161,14 @@ public class BeansContasReceber {
 
     public void setValorRecebido(BigDecimal valorRecebido) {
         this.valorRecebido = valorRecebido;
+    }
+
+    public BigDecimal getSaldoPendente() {
+        return saldoPendente;
+    }
+
+    public void setSaldoPendente(BigDecimal saldoPendente) {
+        this.saldoPendente = saldoPendente;
     }
 
     public String getSituacao() {
